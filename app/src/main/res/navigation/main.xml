@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.dr.udaan.ui.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home2_to_otpForgotPassword"
+            app:destination="@id/otpForgotPassword" />
+        <action
+            android:id="@+id/action_home2_to_resetPassword"
+            app:destination="@id/resetPassword" />
+        <action
+            android:id="@+id/action_home2_self"
+            app:destination="@id/home" />
+        <action
+            android:id="@+id/action_home2_to_library"
+            app:destination="@id/library"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/examDetails"
+        android:name="com.dr.udaan.other.ExamDetails"
+        android:label="fragment_exam_details"
+        tools:layout="@layout/fragment_exam_details"
+        />
+
+    <fragment
+        android:id="@+id/exam"
+        android:name="com.dr.udaan.ui.Exams"
+        android:label="fragment_exams"
+        tools:layout="@layout/fragment_exams"
+        />
+
+    <fragment
+        android:id="@+id/library"
+        android:name="com.dr.udaan.ui.Library"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library"
+        />
+
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.dr.udaan.authentication.ForgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password"
+        />
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.dr.udaan.authentication.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login"
+        />
+
+    <fragment
+        android:id="@+id/information"
+        android:name="com.dr.udaan.authentication.MoreInformation"
+        android:label="fragment_more_information"
+        tools:layout="@layout/fragment_more_information"
+        />
+
+    <fragment
+        android:id="@+id/otpForgotPassword"
+        android:name="com.dr.udaan.authentication.OtpForgotPassword"
+        android:label="fragment_otp_forgot_password"
+        tools:layout="@layout/fragment_otp_forgot_password"
+        />
+
+    <fragment
+        android:id="@+id/otpLogin"
+        android:name="com.dr.udaan.authentication.OtpLogin"
+        android:label="fragment_otp_login"
+        tools:layout="@layout/fragment_otp_login"
+        />
+
+    <fragment
+        android:id="@+id/register"
+        android:name="com.dr.udaan.authentication.Register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register"
+        />
+
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.dr.udaan.authentication.SplashActivity"
+        android:label="activity_splash"
+        tools:layout="@layout/activity_splash"
+        />
+
+    <fragment
+        android:id="@+id/resetPassword"
+        android:name="com.dr.udaan.authentication.ResetPassword"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password"
+        />
+
+    <fragment
+        android:id="@+id/test"
+        android:name="com.dr.udaan.other.Test"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test"
+        />
+
+    <fragment
+        android:id="@+id/tests"
+        android:name="com.dr.udaan.other.Tests"
+        android:label="fragment_tests"
+        tools:layout="@layout/fragment_tests"
+        />
+
+    <fragment
+        android:id="@+id/testSets"
+        android:name="com.dr.udaan.other.TestSets"
+        android:label="fragment_test_sets"
+        tools:layout="@layout/fragment_test_sets"
+        />
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="com.dr.udaan.ui.Profile"
+        android:label="fragment_profile2"
+        tools:layout="@layout/fragment_profile2"
+        />
+
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.dr.udaan.other.questionFragment"
+        android:label="fragment_question"
+        tools:layout="@layout/fragment_question"
+        />
+
+
+
+</navigation>

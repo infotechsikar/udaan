@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".authentication.SplashActivity">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/image"
+        android:id="@+id/backgroundImage"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:id="@+id/llLogoAppName">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/udaan"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Udaan"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_25sdp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/futura_medium"
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintTop_toTopOf="@id/logo"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
+        android:text="Useful education for all"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:alpha="0"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/llLogoAppName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:alpha="0"
+        android:layout_marginTop="200dp"
+        android:id="@+id/llLoginBtn">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_marginHorizontal="70dp"
+            android:textStyle="bold"
+            app:cornerRadius="15dp"
+            app:strokeColor="#0acff3"
+            android:padding="15dp"
+            app:strokeWidth="2dp"
+            android:textSize="17sp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/light_black"
+            app:layout_constraintTop_toBottomOf="@id/text"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="70dp"
+            app:cornerRadius="15dp"
+            android:textSize="17sp"
+            android:padding="15dp"
+            android:backgroundTint="#0acff3"
+            app:layout_constraintTop_toBottomOf="@id/login"
+            />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
