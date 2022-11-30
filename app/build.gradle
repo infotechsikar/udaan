@@ -11,6 +11,7 @@ android {
         viewBinding true
     }
 
+
     defaultConfig {
         applicationId "com.dr.udaan"
         minSdk 23
