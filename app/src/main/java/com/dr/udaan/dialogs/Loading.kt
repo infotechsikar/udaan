@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.dr.udaan.R
 
 class Loading(val mContext: Context) {
-
     private lateinit var d: Dialog
 
     fun build() = run {

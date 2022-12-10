@@ -23,7 +23,7 @@
     android:id="@+id/name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Alice Smith"
+    android:text="Priya Bajaj"
     android:textSize="24dp"
     android:fontFamily="@font/satoshi"
     android:textColor="@color/light_black"
@@ -114,6 +114,7 @@
         app:layout_constraintTop_toBottomOf="@id/cl"
         app:layout_constraintStart_toStartOf="@id/phone_number"
         >
+
         <ImageView
             android:id="@+id/img"
             android:layout_width="40dp"
@@ -151,7 +152,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -162,8 +162,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toBottomOf="@id/cl2"
-        app:layout_constraintStart_toStartOf="@id/phone_number"
-        >
+        app:layout_constraintStart_toStartOf="@id/phone_number">
+
         <ImageView
             android:id="@+id/img_help"
             android:layout_width="40dp"
@@ -201,6 +201,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -211,8 +212,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toBottomOf="@id/cl3"
-        app:layout_constraintStart_toStartOf="@id/phone_number"
-        >
+        app:layout_constraintStart_toStartOf="@id/phone_number">
 
         <ImageView
             android:id="@+id/img_logout"
@@ -230,7 +230,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log OUt"
+            android:text="Log Out"
             android:fontFamily="@font/satoshi"
             android:textSize="16sp"
             android:textColor="@color/light_black"
@@ -253,5 +253,4 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

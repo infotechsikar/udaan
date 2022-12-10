@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/drawable/cursor_dark_blue.xml" value="0.1" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/activity_splash.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_change_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_change_passwords.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_exam_categories.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_exam_details.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_exams.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_forgot_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_home.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_login.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_more_information.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_notification.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_otp_forgot_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_otp_login.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_profile2.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_question.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_register.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_reset_password.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_setting.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_signup.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_test.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_test_sets.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_tests.xml" value="0.1" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/nav_header_view.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_blog.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_categories.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_contents.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_exam.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_exams.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_library.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_question.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_topic.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_topics.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_vp.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/menu/menu_drawer_layout.xml" value="0.17552083333333332" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

@@ -6,10 +6,8 @@ import androidx.viewbinding.ViewBinding
 import com.dr.udaan.dialogs.Loading
 
 abstract class BaseActivity<T: ViewBinding>() : AppCompatActivity() {
-
    private lateinit var loading: Loading
    protected lateinit var binding: T
-
    protected abstract fun getViewBinding(): T
 
    override fun onCreate(savedInstanceState: Bundle?) {

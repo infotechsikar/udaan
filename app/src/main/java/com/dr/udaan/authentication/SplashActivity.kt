@@ -9,45 +9,34 @@ import com.dr.udaan.base.BaseActivity
 import com.dr.udaan.databinding.ActivitySplashBinding
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
-
-    val handler = Handler(Looper.getMainLooper())
+    private val handler = Handler(Looper.getMainLooper())
     lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setDelay()
         actions()
-
     }
 
     private fun setDelay() {
-
         runnable = Runnable {
-
             startAnimation()
-
-            // if user is logged - in
+            //{
+//            handler.postDelayed(runnable, 1500)      // if user is logged - in
 //            runnable = Runnable {
 //                startActivity(Intent(this, MainActivity::class.java))
 //            }
-//
-//            handler.postDelayed(runnable, 1500)
         }
         handler.postDelayed(
             runnable, 300
         )
-
     }
-
     private fun startAnimation() {
-
         binding.llLogoAppName.animate().translationY(-150f).duration = 1000
         binding.slogan.animate().translationY(-150f).duration = 1000
         binding.slogan.animate().alpha(1f).duration = 1000
         binding.backgroundImage.animate().alpha(0f).duration = 1000
         binding.llLoginBtn.animate().alpha(1f).duration = 1000
-
     }
 
     private fun actions() {

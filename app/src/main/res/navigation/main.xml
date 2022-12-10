@@ -133,11 +133,21 @@
 
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.dr.udaan.other.questionFragment"
+        android:name="com.dr.udaan.other.QuestionFragment"
         android:label="fragment_question"
         tools:layout="@layout/fragment_question"
         />
 
-
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.dr.udaan.other.Notification"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification"
+        />
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.dr.udaan.other.Setting"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 
 </navigation>

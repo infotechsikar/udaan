@@ -13,6 +13,7 @@ import com.dr.udaan.databinding.FragmentOtpForgotPasswordBinding
 class OtpForgotPassword : Fragment() {
    lateinit var binding: FragmentOtpForgotPasswordBinding
    lateinit var mContext: Context
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View{

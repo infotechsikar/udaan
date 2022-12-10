@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.dr.udaan.databinding.FragmentTestBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,6 +19,7 @@ class Test : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentTestBinding.inflate(layoutInflater)
+        action()
         setTabLayout()
         return binding.root
     }
@@ -35,6 +37,12 @@ class Test : Fragment() {
         { tab: TabLayout.Tab, position: Int ->
             tab.text = tabs[position]
         }.attach()
+    }
+
+    fun action(){
+        binding.back.setOnClickListener(){
+            findNavController().popBackStack()
+        }
     }
 
     override fun onAttach(context: Context) {

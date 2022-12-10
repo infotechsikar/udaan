@@ -22,7 +22,14 @@ class ExamDetails : Fragment() {
         savedInstanceState: Bundle?): View{
         binding = FragmentExamDetailsBinding.inflate(layoutInflater)
         binding.rv.adapter = AdapterSearchPlaces(findNavController())
+        action()
         return binding.root
+    }
+
+    fun action(){
+        binding.back.setOnClickListener(){
+            findNavController().popBackStack()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -31,7 +38,6 @@ class ExamDetails : Fragment() {
     }
 
     inner class AdapterSearchPlaces(private val navController: NavController) : RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
-
         inner class PlaceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {

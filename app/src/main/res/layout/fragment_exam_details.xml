@@ -11,7 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/ic_baseline_keyboard_backspace_24"
-        android:id="@+id/menu"
+        android:id="@+id/back"
         app:tint="@color/light_gray"
         android:layout_marginTop="25dp"
         android:layout_marginStart="20sp"

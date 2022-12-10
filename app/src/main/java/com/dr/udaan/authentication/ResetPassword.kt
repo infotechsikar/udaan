@@ -17,25 +17,24 @@ class ResetPassword : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View {
         binding = FragmentResetPasswordBinding.inflate(layoutInflater)
         action()
         return binding.root
     }
 
     private fun action() {
-
         binding.back.setOnClickListener(){
             findNavController().popBackStack()
         }
 
-        binding.resetPassword.setOnClickListener{
-            if (binding.phone.text.toString().trim().isEmpty()){
-                binding.phone.error = "Enter your phone number or email address"
-                return@setOnClickListener
-            }
-            Navigation.findNavController(binding.root).navigate(R.id.login)
-        }
+//        binding.resetPassword.setOnClickListener{
+//            if (binding.phone.text.toString().trim().isEmpty()){
+//                binding.phone.error = "Enter your phone number or email address"
+//                return@setOnClickListener
+//            }
+//            Navigation.findNavController(binding.root).navigate(R.id.login)
+//        }
     }
 
     override fun onAttach(context: Context) {

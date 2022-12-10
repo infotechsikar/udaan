@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.dr.udaan.databinding.ActivityMainBinding
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
 
         navigate()
+        navView()
         actions()
         setUpNavComponent()
         setBottomNavigation()
@@ -83,7 +86,6 @@ class MainActivity : AppCompatActivity() {
                     binding.notification.visibility = View.GONE
                 }
             }
-
         }
     }
 
@@ -98,6 +100,33 @@ class MainActivity : AppCompatActivity() {
              return true
         }
         return false
+    }
+
+    fun navView(){
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.exam -> {
+                   navController.navigate(R.id.exam)
+                    true
+                }
+                R.id.library -> {
+                    navController.navigate(R.id.library)
+                    true
+                }
+                R.id.settings -> {
+                    navController.navigate(R.id.setting)
+                    Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.support -> {
+                    Toast.makeText(this, "support", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -119,6 +148,9 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.openDrawer(GravityCompat.START, true)
             }
         }
+        binding.notification.setOnClickListener(){
+            navController.navigate(R.id.notification)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -127,5 +159,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }
