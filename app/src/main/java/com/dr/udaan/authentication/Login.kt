@@ -40,7 +40,7 @@ class Login : Fragment() {
                 return@setOnClickListener
             }
 
-            Navigation.findNavController(binding.root).navigate(R.id.home)
+           findNavController().navigate(R.id.home)
         }
 
         binding.forgotPassword.setOnClickListener() {
