@@ -42,6 +42,8 @@ class OtpLogin : Fragment() {
             findNavController().popBackStack()
         }
 
+
+
         binding.signup.setOnClickListener{
             val etOTP = binding.otp.text.toString()
 
