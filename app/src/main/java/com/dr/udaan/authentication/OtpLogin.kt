@@ -1,5 +1,6 @@
 package com.dr.udaan.authentication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -42,8 +43,6 @@ class OtpLogin : Fragment() {
             findNavController().popBackStack()
         }
 
-
-
         binding.signup.setOnClickListener{
             val etOTP = binding.otp.text.toString()
 
@@ -62,12 +61,16 @@ class OtpLogin : Fragment() {
 
         // Disable Resend button by default
         val cd = object : CountDownTimer(60000, 1000) {
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 // Change time value in resend button
+                binding.resend.setOnClickListener(){
+                    binding.resend.text = "" + millisUntilFinished / 1000
+                }
             }
-
             override fun onFinish() {
                  // Enable Resend button
+                binding.resend.text = ""
             }
         }
         cd.start()
