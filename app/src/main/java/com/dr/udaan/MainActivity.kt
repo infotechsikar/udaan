@@ -1,6 +1,7 @@
 package com.dr.udaan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun destinationControl() {
         navController.addOnDestinationChangedListener { _, navDestination, _ ->
 
+            Log.d("TAG", "destinationControl: ${navDestination.displayName}")
             when (navDestination.id) {
                 R.id.home -> {
                     binding.bottomNevigation.visibility = View.VISIBLE

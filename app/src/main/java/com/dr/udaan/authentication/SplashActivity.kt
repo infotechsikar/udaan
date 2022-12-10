@@ -44,10 +44,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         binding.login.setOnClickListener {
             i.putExtra("page", "login")
             startActivity(i)
+            finish()
         }
         binding.signup.setOnClickListener {
             i.putExtra("page", "register")
             startActivity(i)
+            finish()
         }
     }
 

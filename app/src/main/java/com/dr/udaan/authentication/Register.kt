@@ -26,22 +26,23 @@ class Register : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         action()
         return binding.root
     }
 
     private fun action() {
-        binding.back.setOnClickListener(){
+        binding.back.setOnClickListener() {
             findNavController().popBackStack()
         }
-        binding.continues.setOnClickListener{
-            if (binding.phone.text.toString().trim().isEmpty()){
+        binding.continues.setOnClickListener {
+            if (binding.phone.text.toString().trim().isEmpty()) {
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
             }
-            if (binding.passwords.text.toString().trim().isEmpty()){
+            if (binding.passwords.text.toString().trim().isEmpty()) {
                 binding.passwords.error = "Enter your passwords here"
                 return@setOnClickListener
             }
@@ -56,7 +57,7 @@ class Register : Fragment() {
 //            Navigation.findNavController(binding.root).navigate(R.id.otpLogin)
         }
 
-        binding.login.setOnClickListener(){
+        binding.login.setOnClickListener() {
             findNavController().navigate(R.id.login)
         }
     }
@@ -68,44 +69,43 @@ class Register : Fragment() {
     private suspend fun register(mobileNO: String, password: String) {
 
         val request = RegisterRequest(
-            "1", mobileNO, password,password
+            "1", mobileNO, password, password
         )
 
-           try {
-        val response = getRetrofit().register(request).await()
+        try {
+            val response = getRetrofit().register(request).await()
 
-        Log.d("!!!_-->", "register: ${response.success}   ${response.otpStatus}")
+            Log.d("!!!_-->", "register: ${response.success}   ${response.otpStatus}")
 
-        if (response.success == false && response.message == "Your mobile no is already registered.! Please Login") {
-            findNavController().navigate(R.id.login)
-            return
-        }
-
-        if (response.success == false){
-            withContext(Main){
-                return@withContext
+            if (response.success == false) {
+                withContext(Main) {
+                    if (response.message == "Your mobile no is already registered.! Please Login") {
+                        findNavController().navigate(R.id.login)
+                    } else {
+                        Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    }
+                    return@withContext
+                }
+                return
             }
-        }
 
-        if (response.otpStatus == false) {
-            val otp = response.otp
-            val userId = response.userId
-            val bundle = Bundle()
-            Log.d("!!!_-->", "register: OTP $otp")
+            if (response.otpStatus == false) {
+                val otp = response.otp
+                val userId = response.userId
+                val bundle = Bundle()
+                Log.d("!!!_-->", "register: OTP $otp")
 
-            withContext(Main) {
-                bundle.putString("userid", userId.toString())
-                bundle.putString("otp",otp.toString())
-                //  Toast.makeText(mContext, "OTP $otp", Toast.LENGTH_SHORT).show()
-                //  findNavController().navigate(R.id.otpLogin)
-                findNavController().navigate(R.id.otpLogin,bundle)
+                withContext(Main) {
+                    bundle.putString("userid", userId.toString())
+                    bundle.putString("otp", otp.toString())
+                    //  Toast.makeText(mContext, "OTP $otp", Toast.LENGTH_SHORT).show()
+                    //  findNavController().navigate(R.id.otpLogin)
+                    findNavController().navigate(R.id.otpLogin, bundle)
+                }
             }
+        } catch (e: Exception) {
+            Log.d("!!!_-->", "register: ${e.message}")
         }
-       }
-
-         catch (e: Exception) {
-          Log.d("!!!_-->", "register: ${e.message}")
-           }
 
 //        getRetrofit().register(
 //            request
