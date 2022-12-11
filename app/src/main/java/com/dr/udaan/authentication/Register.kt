@@ -2,27 +2,32 @@ package com.dr.udaan.authentication
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
+import com.dr.udaan.databinding.FragmentOtpLoginBinding
 import com.dr.udaan.databinding.FragmentRegisterBinding
-import com.dr.udaan.retrofit.AllRequest.RegisterRequest
-import com.dr.udaan.retrofit.Retrofitinstance.getRetrofit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.await
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 
 class Register : Fragment() {
     lateinit var binding: FragmentRegisterBinding
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private lateinit var mVerificationId: String
+    lateinit var  mResendToken: PhoneAuthProvider.ForceResendingToken
     lateinit var mContext: Context
+    lateinit var getotp: FragmentOtpLoginBinding
+    var number : String = binding.phone.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +36,51 @@ class Register : Fragment() {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         action()
         return binding.root
+    }
+
+    private fun callBacks() {
+
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                signInWithPhoneAuthCredential(credential)
+            }
+            override fun onVerificationFailed(e: FirebaseException) {
+
+            }
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            )
+            {
+                mVerificationId = verificationId
+                mResendToken = token
+
+            }
+        }
+    }
+
+//  private fun verifyOtp() {
+//      getotp.signup.setOnClickListener() {
+//          verifyPhoneNumberWithCode(
+//              verifyPhoneNumberWithCode(
+//                  mVerificationId,
+//                  getotp.otp.text.toString()
+//              )
+//          )
+//      }
+//  }
+
+    private fun sendOTP(number: String){
+        callBacks()
+        val options = PhoneAuthOptions.newBuilder(Firebase.auth)
+            .setPhoneNumber("+91" + binding.phone.text.toString())       // Phone number to verify
+            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+            .setActivity(activity as AppCompatActivity)                 // Activity (for callback binding)
+            .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+
     }
 
     private fun action() {
@@ -47,13 +97,17 @@ class Register : Fragment() {
                 return@setOnClickListener
             }
 
-            val mobileNO = binding.phone.text.toString().trim()
-            val password = binding.passwords.text.toString().trim()
+            if (number.isNotEmpty()){
+                number = "+91$number"
+                sendOTP(number)
+            }
+          //  val mobileNO = binding.phone.text.toString().trim()
+        //    val password = binding.passwords.text.toString().trim()
 
-            CoroutineScope(IO)
-                .launch {
-                    register(mobileNO, password)
-                }
+          //  CoroutineScope(IO)
+            //    .launch {
+
+              //  }
 //            Navigation.findNavController(binding.root).navigate(R.id.otpLogin)
         }
 
@@ -62,68 +116,36 @@ class Register : Fragment() {
         }
     }
 
-    /**
-     *  Transfer OTP to Verify Page and verify
-     */
 
-    private suspend fun register(mobileNO: String, password: String) {
+    private fun verifyPhoneNumberWithCode(verificationId: String, code: String) {
+        val credential = PhoneAuthProvider.getCredential(verificationId, code)
+        signInWithPhoneAuthCredential(credential)
+    }
 
-        val request = RegisterRequest(
-            "1", mobileNO, password, password
-        )
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
 
-        try {
-            val response = getRetrofit().register(request).await()
+        val user = Firebase.auth.currentUser
 
-            Log.d("!!!_-->", "register: ${response.success}   ${response.otpStatus}")
+        if (user != null) {
 
-            if (response.success == false) {
-                withContext(Main) {
-                    if (response.message == "Your mobile no is already registered.! Please Login") {
-                        findNavController().navigate(R.id.login)
-                    } else {
-                        Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
-                    }
-                    return@withContext
-                }
-                return
-            }
+        } else {
 
-            if (response.otpStatus == false) {
-                val otp = response.otp
-                val userId = response.userId
-                val bundle = Bundle()
-                Log.d("!!!_-->", "register: OTP $otp")
-
-                withContext(Main) {
-                    bundle.putString("userid", userId.toString())
-                    bundle.putString("otp", otp.toString())
-                    //  Toast.makeText(mContext, "OTP $otp", Toast.LENGTH_SHORT).show()
-                    //  findNavController().navigate(R.id.otpLogin)
-                    findNavController().navigate(R.id.otpLogin, bundle)
-                }
-            }
-        } catch (e: Exception) {
-            Log.d("!!!_-->", "register: ${e.message}")
         }
 
-//        getRetrofit().register(
-//            request
-//        ).enqueue(object : Callback<RegisterResponse> {
-//            override fun onResponse(
-//                call: Call<RegisterResponse>,
-//                response: Response<RegisterResponse>
-//            ) {
-//                 val res = response.body()
-//                if (res != null) {
-//                    Log.d(TAG, "onResponse: " + res.otp)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-//
-//            }
-//        })
+        Firebase.auth.signInWithCredential(credential)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val bundle = Bundle()
+                    bundle.putString("phone_number", binding.phone.text.toString())
+                    bundle.putString("password",binding.passwords.text.toString())
+                    findNavController().navigate(R.id.otpLogin, bundle)
+                }
+
+                else {
+                    Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+
+            }
     }
 
     override fun onAttach(context: Context) {
