@@ -66,7 +66,6 @@ class Register : Fragment() {
      *  Transfer OTP to Verify Page and verify
      */
 
-
     private suspend fun register(mobileNO: String, password: String) {
 
         val request = RegisterRequest(

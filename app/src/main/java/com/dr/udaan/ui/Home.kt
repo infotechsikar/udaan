@@ -22,6 +22,11 @@ class Home : Fragment() {
     lateinit var runnable :  Runnable
     private val list = ArrayList<ModelSlider>()
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
