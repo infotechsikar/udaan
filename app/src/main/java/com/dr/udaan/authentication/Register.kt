@@ -1,60 +1,60 @@
 package com.dr.udaan.authentication
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentRegisterBinding
-import com.dr.udaan.retrofit.AllRequest.RegisterRequest
-import com.dr.udaan.retrofit.Retrofitinstance.getRetrofit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.await
+import com.dr.udaan.ui.BaseFragment
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 
-class Register : Fragment() {
-    lateinit var binding: FragmentRegisterBinding
-    lateinit var mContext: Context
+class Register : BaseFragment<FragmentRegisterBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegisterBinding.inflate(layoutInflater)
+    private lateinit var auth: FirebaseAuth
+    private var storedVerificationId: String? = ""
+    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+
+    companion object {
+        var resendToken: PhoneAuthProvider.ForceResendingToken? = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        auth = Firebase.auth
+
+        callBacks()
         action()
-        return binding.root
+
     }
 
     private fun action() {
+
         binding.back.setOnClickListener() {
             findNavController().popBackStack()
         }
+
         binding.continues.setOnClickListener {
             if (binding.phone.text.toString().trim().isEmpty()) {
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
             }
-            if (binding.passwords.text.toString().trim().isEmpty()) {
-                binding.passwords.error = "Enter your passwords here"
+            if (binding.password.text.toString().trim().isEmpty()) {
+                binding.password.error = "Enter your passwords here"
                 return@setOnClickListener
             }
-
             val mobileNO = binding.phone.text.toString().trim()
-            val password = binding.passwords.text.toString().trim()
 
-            CoroutineScope(IO)
-                .launch {
-                    register(mobileNO, password)
-                }
-//            Navigation.findNavController(binding.root).navigate(R.id.otpLogin)
+            showLoading()
+            sendOtp("+91$mobileNO")
+
         }
 
         binding.login.setOnClickListener() {
@@ -62,74 +62,62 @@ class Register : Fragment() {
         }
     }
 
-    /**
-     *  Transfer OTP to Verify Page and verify
-     */
+    private fun sendOtp(phoneNumber: String) {
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(activity as AppCompatActivity)
+            .setCallbacks(callbacks)
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
 
-    private suspend fun register(mobileNO: String, password: String) {
+    private fun callBacks() {
 
-        val request = RegisterRequest(
-            "1", mobileNO, password, password
-        )
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-        try {
-            val response = getRetrofit().register(request).await()
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                dismissLoading()
+            }
 
-            Log.d("!!!_-->", "register: ${response.success}   ${response.otpStatus}")
+            override fun onVerificationFailed(e: FirebaseException) {
 
-            if (response.success == false) {
-                withContext(Main) {
-                    if (response.message == "Your mobile no is already registered.! Please Login") {
-                        findNavController().navigate(R.id.login)
-                    } else {
+                dismissLoading()
+
+                when (e) {
+                    is FirebaseAuthInvalidCredentialsException -> {
+                        Toast.makeText(mContext, "Invalid request", Toast.LENGTH_SHORT).show()
+                    }
+                    is FirebaseTooManyRequestsException -> {
+                        Toast.makeText(mContext, "Too much requests", Toast.LENGTH_SHORT).show()
+                    }
+                    else -> {
                         Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
                     }
-                    return@withContext
                 }
-                return
+
             }
 
-            if (response.otpStatus == false) {
-                val otp = response.otp
-                val userId = response.userId
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                dismissLoading()
+                storedVerificationId = verificationId
+                resendToken = token
                 val bundle = Bundle()
-                Log.d("!!!_-->", "register: OTP $otp")
+                bundle.putString("phone", binding.phone.text.toString())
+                bundle.putString("password", binding.password.text.toString())
+                bundle.putString("verificationId", storedVerificationId)
+                findNavController().navigate(R.id.otpLogin, bundle)
 
-                withContext(Main) {
-                    bundle.putString("userid", userId.toString())
-                    bundle.putString("otp", otp.toString())
-                    //  Toast.makeText(mContext, "OTP $otp", Toast.LENGTH_SHORT).show()
-                    //  findNavController().navigate(R.id.otpLogin)
-                    findNavController().navigate(R.id.otpLogin, bundle)
-                }
             }
-        } catch (e: Exception) {
-            Log.d("!!!_-->", "register: ${e.message}")
+
         }
 
-//        getRetrofit().register(
-//            request
-//        ).enqueue(object : Callback<RegisterResponse> {
-//            override fun onResponse(
-//                call: Call<RegisterResponse>,
-//                response: Response<RegisterResponse>
-//            ) {
-//                 val res = response.body()
-//                if (res != null) {
-//                    Log.d(TAG, "onResponse: " + res.otp)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-//
-//            }
-//        })
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
+    override fun getViewBinding() = FragmentRegisterBinding.inflate(layoutInflater)
 
 }
 
