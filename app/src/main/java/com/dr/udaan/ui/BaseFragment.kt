@@ -26,8 +26,7 @@ abstract class BaseFragment<T: ViewBinding>() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?): View {
         binding = getViewBinding()
         loading = Loading(mContext).build()
         return binding.root

@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,20 +12,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
-import com.dr.udaan.authentication.Register.Companion.resendToken
 import com.dr.udaan.databinding.FragmentOtpLoginBinding
-import com.dr.udaan.databinding.FragmentRegisterBinding
 import com.dr.udaan.retrofit.AllRequest.RegisterRequest
-import com.dr.udaan.retrofit.AllRequest.ResendOtpRequest
-import com.dr.udaan.retrofit.AllRequest.VerifyOtpRequest
 import com.dr.udaan.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -42,9 +34,7 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
     private lateinit var phone: String
     private lateinit var password: String
     private lateinit var verificationId: String
-
     private lateinit var auth: FirebaseAuth
-
     private var resendTimer: CountDownTimer? = null
 
     override fun onCreateView(
@@ -89,7 +79,6 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         binding.login.setOnClickListener(){
             findNavController().navigate(R.id.login)
         }
-
     }
 
     private fun resendVerificationCode(
@@ -120,7 +109,8 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                     .launch {
                         register(phone, password)
                     }
-            } else {
+            }
+            else {
                 Toast.makeText(mContext, "Verification failed!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -215,14 +205,12 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                     startResendTimer()
                 }, 1000)
         }
-
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
-
     override fun getViewBinding() = FragmentOtpLoginBinding.inflate(layoutInflater)
 
 }
