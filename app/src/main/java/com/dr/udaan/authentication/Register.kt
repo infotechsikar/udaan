@@ -27,12 +27,11 @@ class Register : Fragment() {
     lateinit var  mResendToken: PhoneAuthProvider.ForceResendingToken
     lateinit var mContext: Context
     lateinit var getotp: FragmentOtpLoginBinding
-    var number : String = binding.phone.toString()
+  //  var number : String = binding.phone.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        savedInstanceState: Bundle?): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         action()
         return binding.root
@@ -71,7 +70,7 @@ class Register : Fragment() {
 //      }
 //  }
 
-    private fun sendOTP(number: String){
+    private fun sendOTP(){
         callBacks()
         val options = PhoneAuthOptions.newBuilder(Firebase.auth)
             .setPhoneNumber("+91" + binding.phone.text.toString())       // Phone number to verify
@@ -80,7 +79,6 @@ class Register : Fragment() {
             .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-
     }
 
     private fun action() {
@@ -96,10 +94,8 @@ class Register : Fragment() {
                 binding.passwords.error = "Enter your passwords here"
                 return@setOnClickListener
             }
-
-            if (number.isNotEmpty()){
-                number = "+91$number"
-                sendOTP(number)
+          else{
+                sendOTP()
             }
           //  val mobileNO = binding.phone.text.toString().trim()
         //    val password = binding.passwords.text.toString().trim()
@@ -128,7 +124,8 @@ class Register : Fragment() {
 
         if (user != null) {
 
-        } else {
+        }
+        else {
 
         }
 
@@ -140,13 +137,10 @@ class Register : Fragment() {
                     bundle.putString("password",binding.passwords.text.toString())
                     findNavController().navigate(R.id.otpLogin, bundle)
                 }
-
                 else {
                     Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
-
-            }
-    }
+            }}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -30,7 +30,7 @@ class Exams : Fragment() {
         mContext = context
     }
 
-    inner class AdapterSearchPlaces(val navController: NavController) : RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
+    inner class AdapterSearchPlaces(private val navController: NavController) : RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
 
         inner class PlaceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
