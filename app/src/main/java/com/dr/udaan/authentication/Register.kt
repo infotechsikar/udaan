@@ -92,8 +92,8 @@ class Register : Fragment() {
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
             }
-            if (binding.passwords.text.toString().trim().isEmpty()) {
-                binding.passwords.error = "Enter your passwords here"
+            if (binding.password.text.toString().trim().isEmpty()) {
+                binding.password.error = "Enter your passwords here"
                 return@setOnClickListener
             }
 
@@ -137,7 +137,7 @@ class Register : Fragment() {
                 if (it.isSuccessful) {
                     val bundle = Bundle()
                     bundle.putString("phone_number", binding.phone.text.toString())
-                    bundle.putString("password",binding.passwords.text.toString())
+                    bundle.putString("password",binding.password.text.toString())
                     findNavController().navigate(R.id.otpLogin, bundle)
                 }
 

@@ -14,7 +14,7 @@ abstract class BaseFragment<T: ViewBinding>() : Fragment() {
 
     private lateinit var loading: Loading
     protected lateinit var binding: T
-    lateinit var mContext: Context
+    open lateinit var mContext: Context
 
     override fun onAttach(context: Context) {
         mContext = context
