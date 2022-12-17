@@ -5,6 +5,7 @@ import com.dr.udaan.retrofit.AllRequest.LoginRequest
 import com.dr.udaan.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.retrofit.AllRequest.ResendOtpRequest
 import com.dr.udaan.retrofit.AllRequest.VerifyOtpRequest
+import com.dr.udaan.retrofit.Pojo.CategoriesResponse
 import com.dr.udaan.retrofit.Pojo.LoginResponse
 import com.dr.udaan.retrofit.Pojo.ResendOtpResponse
 import com.dr.udaan.retrofit.Pojo.VerifyOtpResponse
@@ -19,7 +20,6 @@ interface RetrofitAPI {
     @POST("register")
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
 
-    @FormUrlEncoded
     @POST("login")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
@@ -29,4 +29,8 @@ interface RetrofitAPI {
     @FormUrlEncoded
     @POST("resend-otp")
     fun resendOtp(@Body resendOtpRequest: ResendOtpRequest):Call<ResendOtpResponse>
+
+    @POST("category")
+    fun categories(): Call<CategoriesResponse>
+
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding 
 import com.dr.udaan.dialogs.Loading
+import com.google.firebase.auth.PhoneAuthProvider
 
 abstract class BaseFragment<T: ViewBinding>() : Fragment() {
 
@@ -33,19 +34,23 @@ abstract class BaseFragment<T: ViewBinding>() : Fragment() {
     }
 
     fun showLoading() {
-        loading.showLoading()
+        if (this::loading.isInitialized)
+            loading.showLoading()
     }
 
     fun showLoading(msg: String) {
-        loading.showLoading(msg)
+        if (this::loading.isInitialized)
+            loading.showLoading(msg)
     }
 
     fun dismissLoading() {
-        loading.dismissLoading()
+        if (this::loading.isInitialized)
+            loading.dismissLoading()
     }
 
     fun isLoadingCancelable(isCancelable: Boolean = false) {
-        loading.setCancelable(isCancelable)
+        if (this::loading.isInitialized)
+            loading.setCancelable(isCancelable)
     }
 
 }

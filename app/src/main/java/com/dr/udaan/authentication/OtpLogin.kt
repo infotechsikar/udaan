@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
+import com.dr.udaan.authentication.Register.Companion.resendToken
 import com.dr.udaan.databinding.FragmentOtpLoginBinding
 import com.dr.udaan.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.retrofit.Retrofitinstance
@@ -24,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.await
@@ -35,6 +37,7 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
     private lateinit var password: String
     private lateinit var verificationId: String
     private lateinit var auth: FirebaseAuth
+
     private var resendTimer: CountDownTimer? = null
 
     override fun onCreateView(
@@ -79,6 +82,7 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         binding.login.setOnClickListener(){
             findNavController().navigate(R.id.login)
         }
+
     }
 
     private fun resendVerificationCode(
@@ -109,12 +113,28 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                     .launch {
                         register(phone, password)
                     }
-            }
-            else {
+            } else {
                 Toast.makeText(mContext, "Verification failed!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
+    private fun verifyPhoneNumberWithCodes(verificationId: String?, code: String){
+        val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
+
+        auth.signInWithCredential(credential).addOnCompleteListener{
+            dismissLoading()
+            if (it.isSuccessful){
+                showLoading()
+                CoroutineScope(IO)
+                    .launch {
+                        register(phone, password)
+                    }
+            }
+            else {
+                Toast.makeText(mContext,"Verification Failed!",Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private suspend fun register(mobileNo: String, password: String) {
@@ -122,12 +142,10 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         val request = RegisterRequest(
             "1", mobileNo, password, password
         )
-
         try {
-
             val response = Retrofitinstance.getRetrofit().register(request).await()
 
-            dismissLoading()
+             dismissLoading()
 
             if (response.success == false) {
                 withContext(Main) {
@@ -141,47 +159,53 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                 return
             }
 
-            if (response.otpStatus == false) {
+           // val otp = response.otp
+           // val userId = response.userId
+           // val bundle = Bundle()
 
-                val otp = response.otp
-                val userId = response.userId
-                val bundle = Bundle()
-
-                withContext(Main) {
-                    bundle.putString("userid", userId.toString())
-                    bundle.putString("otp", otp.toString())
-                    //  Toast.makeText(mContext, "OTP $otp", Toast.LENGTH_SHORT).show()
-                    //  findNavController().navigate(R.id.otpLogin)
-                    findNavController().navigate(R.id.otpLogin, bundle)
-                }
-
+            withContext(Main) {
+                Toast.makeText(mContext, "Registration success", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.login)
             }
         }
+
         catch (e: Exception) {
             dismissLoading()
             e.printStackTrace()
             Toast.makeText(mContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun startResendTimer() {
-
         var timeRemain = 60
 
         resendTimer = object: CountDownTimer(60000, 1000) {
             override fun onTick(p0: Long) {
                 timeRemain--
-                binding.resend.text = "Resend OTP: 00:${String.format("2d", timeRemain)}"
+                binding.resend.text = "Resend OTP: 00:${String.format("%2d", timeRemain)}"
             }
 
             override fun onFinish() {
                 binding.resend.text = "Resend"
                 binding.resend.isEnabled = true
             }
-
         }.start()
+    }
 
+    private fun start(){
+        var timeRemain = 60
+
+        resendTimer = object : CountDownTimer(6000,1000){
+            override fun onTick(p0: Long) {
+                timeRemain--
+                binding.resend.text = "Resend OTP: 00:${String.format("%2d",timeRemain)}"
+            }
+
+            override fun onFinish() {
+                binding.resend.text = "Resend"
+                binding.resend.isEnabled = true
+            }
+        }.start()
     }
 
     private val resendCallBack = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -197,13 +221,14 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         override fun onCodeSent(
             verificationId: String,
             token: PhoneAuthProvider.ForceResendingToken
-        ) {
+        )
+        {
             dismissLoading()
             binding.resend.text = "Code Sent"
             Handler(Looper.getMainLooper())
                 .postDelayed({
                     startResendTimer()
-                }, 1000)
+                },1000)
         }
     }
 
@@ -211,6 +236,7 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         super.onAttach(context)
         mContext = context
     }
+
     override fun getViewBinding() = FragmentOtpLoginBinding.inflate(layoutInflater)
 
 }

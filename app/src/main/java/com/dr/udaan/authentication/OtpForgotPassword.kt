@@ -16,7 +16,7 @@ class OtpForgotPassword : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View{
+        savedInstanceState: Bundle?): View {
         binding = FragmentOtpForgotPasswordBinding.inflate(layoutInflater)
         action()
         return binding.root

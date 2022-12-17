@@ -4,7 +4,7 @@
     package="com.dr.udaan">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,26 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestPaper"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MyWebViewer"
+            android:exported="false" />
         <activity
             android:name="com.dr.udaan.MainActivity"
-            android:exported="false"
-            />
-
+            android:exported="false" />
         <activity
             android:name="com.dr.udaan.collections.Topics"
-            android:exported="false"
-            />
-
+            android:exported="false" />
         <activity
             android:name="com.dr.udaan.collections.ContentViewer"
-            android:exported="false"
-            />
-
+            android:exported="false" />
         <activity
             android:name="com.dr.udaan.authentication.SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

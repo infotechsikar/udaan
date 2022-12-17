@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.dr.udaan.databinding.FragmentMoreInformationBinding
 
 class MoreInformation : Fragment() {
@@ -16,7 +17,14 @@ class MoreInformation : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentMoreInformationBinding.inflate(layoutInflater)
+        action()
         return binding.root
+    }
+
+    private fun action(){
+        binding.skip.setOnClickListener(){
+            findNavController().popBackStack()
+        }
     }
 
     override fun onAttach(context: Context) {

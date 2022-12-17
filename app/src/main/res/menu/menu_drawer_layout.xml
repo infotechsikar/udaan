@@ -25,4 +25,37 @@
           android:icon="@drawable/phone"
         />
 
+    <item
+        android:title="Other">
+
+        <menu>
+
+            <item
+                android:title="About us"
+                android:id="@+id/aboutUs"
+                android:icon="@drawable/ic_team_64"
+                />
+
+            <item
+                android:title="Contact us"
+                android:id="@+id/contactUs"
+                android:icon="@drawable/ic_contact_us"
+                />
+
+            <item
+                android:title="Privacy Policy"
+                android:id="@+id/privacyPolicy"
+                android:icon="@drawable/ic_privacy_policy_64"
+                />
+
+            <item
+                android:title="Terms &amp; Conditions"
+                android:id="@+id/termsConditions"
+                android:icon="@drawable/ic_terms_and_conditions_64"
+                />
+
+        </menu>
+
+    </item>
+
 </menu>

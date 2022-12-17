@@ -146,133 +146,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@id/cl2"
         android:layout_margin="30dp"
         android:background="@drawable/back_img_library"
-        android:padding="15dp"
-        android:id="@+id/cl2"
+        android:padding="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:itemCount="3"
+        tools:listitem="@layout/row_item_exam"
         app:layout_constraintEnd_toEndOf="@id/cl"
         app:layout_constraintTop_toBottomOf="@id/upcoming_exam"
-        tools:layout_editor_absoluteX="16dp">
-
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_row_item_img"
-            android:padding="10dp"
-            android:src="@drawable/ic_baseline_article_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/light_gray"
-            />
-
-        <TextView
-            android:id="@+id/courses_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/satoshi"
-            android:text="SSC GD Constable 2022\n(New Pattern)"
-            android:textSize="12sp"
-            android:textColor="@color/light_black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <ImageView
-            android:id="@+id/details"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/courses_name"
-            app:layout_constraintBottom_toBottomOf="@id/courses_name"
-            app:tint="@color/light_gray"
-            />
-
-        <ImageView
-            android:id="@+id/img1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_red"
-            android:padding="10dp"
-            android:src="@drawable/ic_baseline_article_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img"
-            app:tint="@color/light_gray"
-            />
-
-        <TextView
-            android:id="@+id/courses_name1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/satoshi"
-            android:textColor="@color/light_black"
-            android:text="CUET 2022(General and\nDomain Language)"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img1"
-            app:layout_constraintTop_toTopOf="@id/img1"
-            />
-
-        <ImageView
-            android:id="@+id/details1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/courses_name1"
-            app:layout_constraintBottom_toBottomOf="@id/courses_name1"
-            app:tint="@color/light_gray"
-            />
-
-        <ImageView
-            android:id="@+id/img2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10sp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/background_blue"
-            android:padding="10dp"
-            android:src="@drawable/ic_baseline_article_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img1"
-            app:tint="@color/light_gray"
-            />
-
-        <TextView
-            android:id="@+id/courses_name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/satoshi"
-            android:text="SSC CGL 2022-23(Tier1\n and Tier2)"
-            android:textSize="12sp"
-            android:textColor="@color/light_black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img2"
-            app:layout_constraintTop_toTopOf="@id/img2"
-            />
-
-        <ImageView
-            android:id="@+id/details2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/courses_name2"
-            app:layout_constraintBottom_toBottomOf="@id/courses_name2"
-            app:tint="@color/light_gray"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        />
 
     <TextView
         android:id="@+id/blog"
@@ -312,5 +199,4 @@
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
    </androidx.core.widget.NestedScrollView>

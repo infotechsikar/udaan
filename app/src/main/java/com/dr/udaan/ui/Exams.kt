@@ -10,8 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.dr.udaan.R
+import com.dr.udaan.adapter.AdapterExams
 import com.dr.udaan.databinding.FragmentExamsBinding
 import com.dr.udaan.databinding.RowItemExamBinding
+import com.dr.udaan.other.APIData
+import com.dr.udaan.retrofit.Pojo.CategoryData
+import kotlinx.coroutines.*
 
 class Exams : Fragment() {
     lateinit var binding: FragmentExamsBinding
@@ -21,8 +25,33 @@ class Exams : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentExamsBinding.inflate(layoutInflater)
-        binding.rv.adapter = AdapterSearchPlaces(findNavController())
+       // binding.rv.adapter = AdapterSearchPlaces(findNavController())
+
+        CoroutineScope(Dispatchers.IO)
+            .launch {
+                getCategories()
+            }
         return binding.root
+    }
+
+    private fun getCategories() {
+
+        CoroutineScope(Dispatchers.IO)
+            .launch {
+
+                val categoryData = APIData.fetchCategories()
+
+                val cList = ArrayList<CategoryData>()
+
+                for (i in 0..4) {
+                    if (categoryData.size > i) {
+                        cList.add(categoryData[i])
+                    }
+                }
+                withContext(Dispatchers.Main){
+                    binding.rv.adapter = AdapterExams(cList,findNavController())
+                }
+            }
     }
 
     override fun onAttach(context: Context) {
@@ -30,7 +59,8 @@ class Exams : Fragment() {
         mContext = context
     }
 
-    inner class AdapterSearchPlaces(private val navController: NavController) : RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
+    inner class AdapterSearchPlaces(private val navController: NavController) :
+        RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
 
         inner class PlaceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -46,11 +76,11 @@ class Exams : Fragment() {
             holder.itemView.setOnClickListener(){
                 navController.navigate(R.id.examDetails)
             }
-
         }
 
         override fun getItemCount(): Int {
             return 10
         }
+
     }
 }
