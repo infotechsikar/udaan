@@ -93,7 +93,6 @@ class Home : Fragment() {
     }
 
     private fun getCategories() {
-
         CoroutineScope(IO)
             .launch {
 
@@ -130,6 +129,7 @@ class Home : Fragment() {
         override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
 
         }
+
         override fun getItemCount(): Int {
             return list.size
         }
