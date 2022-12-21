@@ -21,6 +21,6 @@ data class TestData (
     @SerializedName("deleted"     ) var deleted     : String?           = null,
     @SerializedName("created_at"  ) var createdAt   : String?           = null,
     @SerializedName("updated_at"  ) var updatedAt   : String?           = null,
-    @SerializedName("question"    ) var question    : ArrayList<String> = arrayListOf()
+    @SerializedName("question"    ) var question    : ArrayList<QuestionData> = arrayListOf()
 
 )

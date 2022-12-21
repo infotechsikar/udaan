@@ -5,10 +5,7 @@ import com.dr.udaan.retrofit.AllRequest.LoginRequest
 import com.dr.udaan.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.retrofit.AllRequest.ResendOtpRequest
 import com.dr.udaan.retrofit.AllRequest.VerifyOtpRequest
-import com.dr.udaan.retrofit.Pojo.CategoriesResponse
-import com.dr.udaan.retrofit.Pojo.LoginResponse
-import com.dr.udaan.retrofit.Pojo.ResendOtpResponse
-import com.dr.udaan.retrofit.Pojo.VerifyOtpResponse
+import com.dr.udaan.retrofit.Pojo.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -32,5 +29,11 @@ interface RetrofitAPI {
 
     @POST("category")
     fun categories(): Call<CategoriesResponse>
+
+    @FormUrlEncoded
+    @POST("test")
+    fun getTestData(
+        @Field("category_id") categoryId : Int
+    ) : Call<TestResponse?>?
 
 }

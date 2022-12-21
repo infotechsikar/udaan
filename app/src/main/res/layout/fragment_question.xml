@@ -85,153 +85,159 @@
         app:layout_constraintTop_toTopOf="@id/time_left"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:padding="10dp"
-        android:id="@+id/ll"
-        android:orientation="vertical"
-        android:background="@drawable/back_img_library"
-        app:layout_constraintTop_toBottomOf="@id/time_left"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_left" />
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:padding="10dp"-->
+<!--        android:id="@+id/ll"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="@drawable/back_img_library"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/time_left"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
 
-        <TextView
-            android:id="@+id/question"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Question 1 of 20 "
-            android:textSize="12sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/question"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Question 1 of 20 "-->
+<!--            android:textSize="12sp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            />-->
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/save"
-            app:layout_constraintTop_toTopOf="@id/question"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+<!--        <ImageView-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:src="@drawable/save"-->
+<!--            app:layout_constraintTop_toTopOf="@id/question"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/question"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="WebViewLayout">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/question"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            tools:ignore="WebViewLayout">-->
 
-            <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp">
+<!--            <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="@dimen/_20sdp">-->
 
-                <WebView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Which one of the following river flows between Vindhyan and satpura ranges"
-                    android:textSize="16sp"
-                    android:layout_margin="20sp"
-                    android:fontFamily="@font/satoshi"
-                    />
+<!--                <WebView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Which one of the following river flows between Vindhyan and satpura ranges"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:layout_margin="20sp"-->
+<!--                    android:fontFamily="@font/satoshi"-->
+<!--                    />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/back_img_library"
-                android:padding="15dp"
-                android:layout_margin="20dp">
-                <WebView
-                    android:id="@+id/option_a"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="A. Narmada"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/back_img_library"
-                >
-                <WebView
-                    android:id="@+id/option_b"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="B. Narmada"
-                    />
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/back_img_library"-->
+<!--                android:padding="15dp"-->
+<!--                android:layout_margin="20dp">-->
+<!--                <WebView-->
+<!--                    android:id="@+id/option_a"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="A. Narmada"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="15dp"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:background="@drawable/back_img_library"-->
+<!--                >-->
+<!--                <WebView-->
+<!--                    android:id="@+id/option_b"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="B. Narmada"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
 
-           <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:padding="15dp"
-             android:layout_margin="20dp"
-             android:background="@drawable/back_img_library"
-               >
-               <WebView
-                   android:id="@+id/option_c"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="C. Narmada"
-                   />
-           </LinearLayout>
+<!--           <LinearLayout-->
+<!--             android:layout_width="match_parent"-->
+<!--             android:layout_height="wrap_content"-->
+<!--             android:padding="15dp"-->
+<!--             android:layout_margin="20dp"-->
+<!--             android:background="@drawable/back_img_library"-->
+<!--               >-->
+<!--               <WebView-->
+<!--                   android:id="@+id/option_c"-->
+<!--                   android:layout_width="match_parent"-->
+<!--                   android:layout_height="wrap_content"-->
+<!--                   android:text="C. Narmada"-->
+<!--                   />-->
+<!--           </LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/back_img_library">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="15dp"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:background="@drawable/back_img_library">-->
 
-                <WebView
-                    android:id="@+id/option_d"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="D. Narmada"
-                    />
-            </LinearLayout>
-           </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <WebView-->
+<!--                    android:id="@+id/option_d"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="D. Narmada"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+<!--           </LinearLayout>-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/Previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:text="Previous"
         android:textColor="@color/black"
-        app:cornerRadius="10dp"
         android:textSize="17sp"
-        android:layout_marginTop="40dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:strokeColor="@color/sky_blue"
-        app:strokeWidth="1dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/ll"
-        app:layout_constraintStart_toStartOf="@id/ll"
-        />
+        app:strokeWidth="1dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
         android:text="Next"
         android:textColor="@color/black"
-        app:cornerRadius="10dp"
         android:textSize="17sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:strokeColor="@color/sky_blue"
-        app:strokeWidth="1dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintTop_toTopOf="@id/Previous"
-        app:layout_constraintEnd_toEndOf="@id/ll"
-        />
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.dr.udaan.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.dr.udaan.R
 import com.dr.udaan.databinding.RowItemExamBinding
 import com.dr.udaan.retrofit.Pojo.CategoryData
+import com.dr.udaan.utils.AppConstants
 
 class AdapterExams(private val list: ArrayList<CategoryData>, private val navController: NavController):
         RecyclerView.Adapter<AdapterExams.ExamHolder>() {
@@ -32,7 +34,11 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
 
             holder.itemView.setOnClickListener {
                 val categoryId = list[position].id
-                navController.navigate(R.id.examDetails)
+                val args = Bundle()
+                if (categoryId != null) {
+                    args.putInt(AppConstants.CATEGORY_ID,categoryId)
+                }
+                navController.navigate(R.id.examDetails,args)
             }
 //
         }
