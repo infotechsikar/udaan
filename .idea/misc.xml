@@ -24,7 +24,7 @@
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_otp_forgot_password.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_otp_login.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_profile2.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_question.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_question.xml" value="0.22" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_register.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_reset_password.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/fragment_setting.xml" value="0.17552083333333332" />
@@ -37,7 +37,7 @@
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_categories.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_contents.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_exam.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_exams.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_exams.xml" value="0.10666666666666667" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_library.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_question.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Monika/AndroidStudioProjects/udaan/app/src/main/res/layout/row_item_topic.xml" value="0.17552083333333332" />

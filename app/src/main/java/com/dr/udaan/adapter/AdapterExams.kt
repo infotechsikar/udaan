@@ -1,5 +1,6 @@
 package com.dr.udaan.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,13 @@ import com.bumptech.glide.Glide
 import com.dr.udaan.R
 import com.dr.udaan.databinding.RowItemExamBinding
 import com.dr.udaan.retrofit.Pojo.CategoryData
+import com.dr.udaan.retrofit.Pojo.TestData
 
 class AdapterExams(private val list: ArrayList<CategoryData>, private val navController: NavController):
         RecyclerView.Adapter<AdapterExams.ExamHolder>() {
-        inner class ExamHolder(itemView: View, val dBinding: RowItemExamBinding) : RecyclerView.ViewHolder(itemView) {
 
+        inner class ExamHolder(itemView: View, val dBinding: RowItemExamBinding)
+            : RecyclerView.ViewHolder(itemView) {
 
         }
 
@@ -23,7 +26,6 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
         }
 
         override fun onBindViewHolder(holder: ExamHolder, position: Int) {
-
             holder.dBinding.coursesName.text = list[position].categoryName
 
             Glide.with(holder.itemView.context)
@@ -32,9 +34,12 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
 
             holder.itemView.setOnClickListener {
                 val categoryId = list[position].id
-                navController.navigate(R.id.examDetails)
+                val args = Bundle()
+                if (categoryId != null) {
+                    args.putInt("category_id", categoryId)
+                }
+                navController.navigate(R.id.examDetails,args)
             }
-//
         }
 
         override fun getItemCount(): Int {

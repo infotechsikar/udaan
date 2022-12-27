@@ -72,6 +72,7 @@
         android:layout_height="wrap_content"
         android:text="Time Left"
         android:textSize="14sp"
+        android:layout_marginTop="@dimen/_2sdp"
         app:layout_constraintTop_toBottomOf="@id/heading"
         app:layout_constraintStart_toStartOf="@id/heading"
         />
@@ -79,10 +80,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0:00:01"
+        android:text="1m:10s"
+        android:textSize="12sp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="@dimen/_2sdp"
         app:layout_constraintStart_toEndOf="@id/time_left"
         app:layout_constraintTop_toTopOf="@id/time_left"
+        android:id="@+id/timer"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/question"
+            android:id="@+id/questionNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Question 1 of 20 "
@@ -113,7 +117,7 @@
             android:layout_height="20dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/save"
-            app:layout_constraintTop_toTopOf="@id/question"
+            app:layout_constraintTop_toTopOf="@id/questionNo"
             app:layout_constraintEnd_toEndOf="parent"
             />
 
@@ -123,20 +127,21 @@
             android:orientation="vertical"
             android:padding="5dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/question"
+            app:layout_constraintTop_toBottomOf="@id/questionNo"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="WebViewLayout">
 
             <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp">
 
                 <WebView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Which one of the following river flows between Vindhyan and satpura ranges"
                     android:textSize="16sp"
+                    android:id="@+id/question"
                     android:layout_margin="20sp"
                     android:fontFamily="@font/satoshi"
                     />
@@ -167,7 +172,7 @@
                     android:id="@+id/option_b"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="B. Narmada"
+                    android:text="B.Narmada"
                     />
             </LinearLayout>
 

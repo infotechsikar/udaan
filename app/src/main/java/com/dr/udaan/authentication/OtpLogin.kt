@@ -144,7 +144,6 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
         )
         try {
             val response = Retrofitinstance.getRetrofit().register(request).await()
-
              dismissLoading()
 
             if (response.success == false) {

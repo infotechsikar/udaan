@@ -20,7 +20,8 @@ class AdapterTopics(private val list:ArrayList<ModelTopics>): RecyclerView.Adapt
      init {
          text = itemView.findViewById(R.id.courses_name)
      }
-    }
+
+   }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicHolder {
         val view = LayoutInflater.from(parent.context)

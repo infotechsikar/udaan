@@ -79,45 +79,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Growth"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:fontFamily="@font/satoshi"
             app:layout_constraintTop_toBottomOf="@id/growth"
             app:layout_constraintStart_toStartOf="@id/growth"
             app:layout_constraintEnd_toEndOf="@id/growth"
-            />
+            tools:ignore="SmallSp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Score Board"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:fontFamily="@font/satoshi"
             app:layout_constraintTop_toBottomOf="@id/growth"
             app:layout_constraintStart_toStartOf="@id/score"
             app:layout_constraintEnd_toEndOf="@id/score"
-            />
+            tools:ignore="SmallSp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Saved"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:fontFamily="@font/satoshi"
             app:layout_constraintTop_toBottomOf="@id/growth"
             app:layout_constraintStart_toStartOf="@id/save"
             app:layout_constraintEnd_toEndOf="@id/save"
-            />
+            tools:ignore="SmallSp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Notes"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:fontFamily="@font/satoshi"
             app:layout_constraintTop_toBottomOf="@id/growth"
             app:layout_constraintStart_toStartOf="@id/notes"
             app:layout_constraintEnd_toEndOf="@id/notes"
-            />
+            tools:ignore="SmallSp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

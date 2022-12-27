@@ -49,6 +49,11 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                 binding.password.error = "Enter your passwords here"
                 return@setOnClickListener
             }
+            if (binding.password.text.toString().length != 8){
+                binding.password.error = "Enter Atleast 8 Characters"
+                return@setOnClickListener
+            }
+
             val mobileNO = binding.phone.text.toString().trim()
 
             showLoading()

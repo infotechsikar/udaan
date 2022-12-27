@@ -10,27 +10,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.dr.udaan.R
 import com.dr.udaan.adapter.AdapterExams
+import com.dr.udaan.adapter.AdapterSliderHome
 import com.dr.udaan.databinding.FragmentHomeBinding
 import com.dr.udaan.databinding.RowItemBlogBinding
-import com.dr.udaan.databinding.RowItemExamBinding
 import com.dr.udaan.other.APIData
-import com.dr.udaan.retrofit.Pojo.CategoriesResponse
 import com.dr.udaan.retrofit.Pojo.CategoryData
-import com.dr.udaan.retrofit.RetrofitAPI
+import com.dr.udaan.retrofit.Pojo.SliderData
 import com.dr.udaan.retrofit.Retrofitinstance
-import com.dr.udaan.retrofit.Retrofitinstance.getRetrofit
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.NullPointerException
+import retrofit2.await
 import java.lang.Runnable
 
 class Home : Fragment() {
@@ -39,10 +33,13 @@ class Home : Fragment() {
     var handler = Handler(Looper.getMainLooper())
     lateinit var runnable: Runnable
     private val list = ArrayList<ModelSlider>()
+    private var sliderImages = arrayListOf<String>()
 
     override fun onDestroy() {
+        if (this::runnable.isInitialized) {
+            handler.removeCallbacks(runnable)
+        }
         super.onDestroy()
-        handler
     }
 
     override fun onCreateView(
@@ -51,11 +48,22 @@ class Home : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         binding.rv.adapter = AdapterBlog()
-        slider()
-        action()
+          action()
 
         CoroutineScope(IO)
             .launch {
+            getSlider()
+            withContext(Dispatchers.Main)    {
+                binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                val adapter = AdapterSliderHome(binding.vp, sliderImages)
+                binding.vp.adapter = adapter
+
+                runnable = kotlinx.coroutines.Runnable {
+                    binding.vp.currentItem = binding.vp.currentItem + 1
+                    handler.postDelayed(runnable, 3000)
+                }
+                handler.postDelayed(runnable, 3000)
+            }
                 getCategories()
             }
         return binding.root
@@ -66,12 +74,15 @@ class Home : Fragment() {
             findNavController().navigate(R.id.exam)
         }
     }
+
     private fun slider() {
+
         binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+
         val adapterCurrentNews = AdapterSlider(binding.vp, list)
 
         binding.vp.adapter = adapterCurrentNews
@@ -92,12 +103,23 @@ class Home : Fragment() {
 //        )
     }
 
+    private suspend fun getSlider(){
+
+        var sliderData = ArrayList<SliderData>()
+        val response = Retrofitinstance.getRetrofit().sliders().await().categoryData
+//        Log.d("SINFOO",response.toString())
+        for (data in response) {
+//            Log.d("-->", data.id!!.toString())
+            sliderImages.add(data.sliderImage!!)
+        }
+      //  sliderData = response.categoryData
+    }
+
     private fun getCategories() {
         CoroutineScope(IO)
             .launch {
 
                 val categoryData = APIData.fetchCategories()
-
                 val cList = ArrayList<CategoryData>()
 
                 for (i in 0..3) {
@@ -131,9 +153,7 @@ class Home : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return list.size
+            return 10
         }
         }
-
-
 }

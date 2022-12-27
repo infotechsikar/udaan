@@ -12,7 +12,7 @@ data class TestResponse (
 
 data class TestData (
     @SerializedName("id"          ) var id          : Int?              = null,
-    @SerializedName("category_id" ) var categoryId  : Int?              = null,
+    @SerializedName("category_id" ) var categoryId   : Int?              = null,
     @SerializedName("title"       ) var title       : String?           = null,
     @SerializedName("test_image"  ) var testImage   : String?           = null,
     @SerializedName("item_type"   ) var itemType    : String?           = null,
@@ -21,6 +21,6 @@ data class TestData (
     @SerializedName("deleted"     ) var deleted     : String?           = null,
     @SerializedName("created_at"  ) var createdAt   : String?           = null,
     @SerializedName("updated_at"  ) var updatedAt   : String?           = null,
-    @SerializedName("question"    ) var question    : ArrayList<String> = arrayListOf()
+    @SerializedName("question"    ) var question    : ArrayList<QuestionData> = arrayListOf()
 
 )

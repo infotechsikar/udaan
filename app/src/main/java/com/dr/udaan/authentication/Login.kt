@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentLoginBinding
 import com.dr.udaan.retrofit.AllRequest.LoginRequest
+import com.dr.udaan.retrofit.Retrofitinstance
 import com.dr.udaan.retrofit.Retrofitinstance.getRetrofit
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -20,31 +22,21 @@ import kotlinx.coroutines.withContext
 import retrofit2.await
 
 class Login : Fragment() {
- lateinit var binding: FragmentLoginBinding
- lateinit var mContext: Context
+    lateinit var binding: FragmentLoginBinding
+    lateinit var mContext: Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
+
         action()
         return binding.root
     }
 
-  private suspend fun login (mobileNo: String, password: String){
-      val request = LoginRequest(mobileNo,password)
+    private suspend fun updateUi() {
 
-      val response = getRetrofit().login(request).await()
-
-      if (response.success == false){
-          withContext(Main){
-              Toast.makeText(mContext, "Please enter correct information", Toast.LENGTH_SHORT).show()
-          }
-      }
-      else {
-
-      }
-  }
+    }
 
     private fun action() {
         binding.back.setOnClickListener(){
@@ -62,13 +54,19 @@ class Login : Fragment() {
                 return@setOnClickListener
             }
 
-            findNavController().navigate(R.id.home)
+            if (binding.passwords.text.toString().length != 8){
+                binding.passwords.error = "Enter Atleast 8 Characters"
+                return@setOnClickListener
+            }
             val mobileNo = binding.phone.text.toString()
             val password = binding.passwords.text.toString()
 
             CoroutineScope(IO).launch {
-               // login(mobileNo,password)
-               // findNavController().navigate(R.id.home)
+                val response = Retrofitinstance.getRetrofit().login(mobileNo,password).await()
+
+                withContext(Dispatchers.Main){
+                    findNavController().navigate(R.id.home)
+                }
             }
         }
 

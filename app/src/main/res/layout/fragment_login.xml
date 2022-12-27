@@ -118,6 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"
+            android:maxLength="15"
             android:id="@+id/passwords"
             android:padding="15dp"
             />

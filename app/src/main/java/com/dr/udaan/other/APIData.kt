@@ -1,6 +1,8 @@
 package com.dr.udaan.other
 
+import com.dr.udaan.retrofit.AllRequest.TestRequest
 import com.dr.udaan.retrofit.Pojo.CategoryData
+import com.dr.udaan.retrofit.Pojo.TestData
 import com.dr.udaan.retrofit.Retrofitinstance
 import retrofit2.await
 
@@ -9,16 +11,35 @@ object APIData {
     suspend fun fetchCategories(): ArrayList<CategoryData> {
 
         var categoryData = ArrayList<CategoryData>()
+
         try {
             val response = Retrofitinstance.getRetrofit().categories().await()
-
             categoryData = response.categoryData
+        }
 
-        } catch (e: Exception) {
+         catch (e: Exception) {
             e.printStackTrace()
         }
 
         return categoryData
     }
 
+//    suspend fun fetchTest(): ArrayList<TestData>{
+//
+//        var testData = ArrayList<TestData>()
+//        val request = TestRequest (
+//            "1"
+//            )
+//
+//        try {
+//
+//            val response = Retrofitinstance.getRetrofit().test(request).await()
+//            testData = response.testData
+//        }
+//
+//        catch (e: Exception){
+//            e.printStackTrace()
+//        }
+//        return testData
+//    }
 }
