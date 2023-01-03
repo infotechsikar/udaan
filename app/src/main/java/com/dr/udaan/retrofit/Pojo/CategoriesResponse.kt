@@ -14,6 +14,7 @@ data class CategoryData (
 
     @SerializedName("id"             ) var id            : Int?    = null,
     @SerializedName("category_name"  ) var categoryName  : String? = null,
-    @SerializedName("category_image" ) var categoryImage : String? = null
+    @SerializedName("category_image" ) var categoryImage : String? = null,
+    @SerializedName("deleted"        ) var deleted       : String? = null
 
 )

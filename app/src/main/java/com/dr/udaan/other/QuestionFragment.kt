@@ -139,6 +139,7 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
     override fun getViewBinding() = FragmentQuestionBinding.inflate(layoutInflater)
 
 }
+
 data class SubmitAnswer(
     var questionId: Int?,
     var selectedOption: Int?

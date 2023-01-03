@@ -11,7 +11,6 @@ import retrofit2.http.POST
 
 interface RetrofitAPI {
 
-
     @POST("register")
     fun register(@Body registerRequest: RegisterRequest): Call<RegisterResponse>
 
@@ -32,15 +31,14 @@ interface RetrofitAPI {
     @POST("category")
     fun categories(): Call<CategoriesResponse>
 
-    @POST("slider")
-    fun sliders():Call<SliderResponse>
+   // @POST("slider")
+   // fun sliders():Call<SliderResponse>
 
-    @FormUrlEncoded
-    @POST("test")
-    fun test(
-        @Field("category_id") categoryId : Int
-
-    ): Call<TestResponse>
+  // @FormUrlEncoded
+  // @POST("test")
+  // fun test(
+  //     @Field("category_id") categoryId : Int
+  // ): Call<TestResponse>
 
     @FormUrlEncoded
     @POST("questions")
@@ -51,4 +49,20 @@ interface RetrofitAPI {
     @POST("questions")
     fun questions(@Body questionResponse: QuestionRequest): Call<QuestionResponse>
 
+    @FormUrlEncoded
+    @POST("add-details")
+    fun addDetails(
+        @Field ("user_id") userId: Int,
+        @Field ("name") name: String,
+        @Field ("email") email: String,
+        @Field ("dob") dob: Int,
+        @Field("category_id") categoryId: Int,
+        @Field("address") address : String
+    )
+
+    @POST("add-details")
+    fun addDetail(@Body addDetailRequest: AddDetailRequest):Call<AddDetailsResponse>
+
+    @POST("blogs")
+    fun blogs():Call<BlogsResponse>
 }

@@ -148,6 +148,37 @@
         android:id="@+id/setting"
         android:name="com.dr.udaan.other.Setting"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting"
+        />
+    <fragment
+        android:id="@+id/blogs"
+        android:name="com.dr.udaan.other.Blogs"
+        android:label="fragment_blogs"
+        tools:layout="@layout/fragment_blogs"
+        />
+    <fragment
+        android:id="@+id/growth"
+        android:name="com.dr.udaan.ui.Growth"
+        android:label="fragment_growth"
+        tools:layout="@layout/fragment_growth"
+        />
+    <fragment
+        android:id="@+id/notes"
+        android:name="com.dr.udaan.ui.Notes"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes"
+        />
+    <fragment
+        android:id="@+id/saved"
+        android:name="com.dr.udaan.ui.Saved"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved"
+        />
+    <fragment
+        android:id="@+id/scoreBoard"
+        android:name="com.dr.udaan.other.ScoreBoard"
+        android:label="fragment_score_board"
+        tools:layout="@layout/fragment_score_board"
+        />
 
 </navigation>

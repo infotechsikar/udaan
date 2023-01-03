@@ -36,7 +36,6 @@ class Exams : Fragment() {
             .launch {
 
                 val categoryData = APIData.fetchCategories()
-
                 val cList = ArrayList<CategoryData>()
 
                 for (i in 0..4) {
@@ -47,14 +46,13 @@ class Exams : Fragment() {
                 withContext(Dispatchers.Main){
                     binding.rv.adapter = AdapterExams(cList,findNavController())
                 }
-            }
-    }
+            }}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
-
+}
 //    inner class AdapterSearchPlaces(private val navController: NavController) :
 //        RecyclerView.Adapter<AdapterSearchPlaces.PlaceHolder>() {
 //
@@ -79,4 +77,3 @@ class Exams : Fragment() {
 //        }
 //    }
 
-}

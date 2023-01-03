@@ -30,6 +30,7 @@ class Test : Fragment() {
             requireActivity().supportFragmentManager,
             lifecycle
         )
+
         binding.vp.adapter = adapterHomePage
         TabLayoutMediator(
             binding.tablayout, binding.vp

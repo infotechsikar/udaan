@@ -27,9 +27,7 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         auth = Firebase.auth
-
         callBacks()
         action()
     }
@@ -45,10 +43,7 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
             }
-            if (binding.password.text.toString().trim().isEmpty()) {
-                binding.password.error = "Enter your passwords here"
-                return@setOnClickListener
-            }
+            if (binding.password.text.toString().trim().isEmpty())
             if (binding.password.text.toString().length != 8){
                 binding.password.error = "Enter Atleast 8 Characters"
                 return@setOnClickListener
@@ -99,10 +94,12 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                         }
                     }
                 }
+
                 catch (e: Exception){
                     e.printStackTrace()
                 }
             }
+
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken

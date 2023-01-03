@@ -23,9 +23,8 @@ import retrofit2.await
 class ExamDetails : Fragment() {
     lateinit var binding: FragmentExamDetailsBinding
     lateinit var mContext: Context
-    var categoryId = -1
+    private var categoryId = -1
     private var allTest = arrayListOf<TestData>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +35,7 @@ class ExamDetails : Fragment() {
         action()
         CoroutineScope(Dispatchers.IO)
             .launch {
-              test()
+           test()
             }
         return binding.root
     }
@@ -47,17 +46,15 @@ class ExamDetails : Fragment() {
         }
     }
 
-
-
     private suspend fun test(){
         var testData = ArrayList<TestData>()
 
-        val response = Retrofitinstance.getRetrofit().test(categoryId).await()
-
-        testData = response.testData
-
-      //  for (data in response)
-        //    data.title?.let { Log.d("SINFO", it) }
+//        val response = Retrofitinstance.getRetrofit().test(categoryId).await()
+//
+//        testData = response.testData
+//
+//        for (data in response)
+//            data.title?.let { Log.d("SINFO", it) }
 
         val cList = ArrayList<TestData>()
 
@@ -66,9 +63,11 @@ class ExamDetails : Fragment() {
                 cList.add(testData[i])
             }
         }
+
         withContext(Dispatchers.Main){
             binding.rv.adapter = AdapterTest(cList,findNavController())
         }
+
     }
 
     override fun onAttach(context: Context) {
