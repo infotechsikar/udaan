@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.dr.udaan.adapter.AdapterExams
 import com.dr.udaan.databinding.FragmentExamsBinding
 import com.dr.udaan.other.APIData
-import com.dr.udaan.retrofit.Pojo.CategoryData
+import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import kotlinx.coroutines.*
 
 class Exams : Fragment() {

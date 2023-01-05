@@ -1,8 +1,10 @@
-package com.dr.udaan.retrofit
+package com.dr.udaan.api.retrofit
 
 import com.dr.udaan.RegisterResponse
-import com.dr.udaan.retrofit.AllRequest.*
-import com.dr.udaan.retrofit.Pojo.*
+import com.dr.udaan.api.retrofit.AllRequest.RegisterRequest
+import com.dr.udaan.api.retrofit.AllRequest.ResendOtpRequest
+import com.dr.udaan.api.retrofit.AllRequest.VerifyOtpRequest
+import com.dr.udaan.api.retrofit.Pojo.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -31,14 +33,15 @@ interface RetrofitAPI {
     @POST("category")
     fun categories(): Call<CategoriesResponse>
 
-   // @POST("slider")
-   // fun sliders():Call<SliderResponse>
+    @POST("slider")
+    fun sliders():Call<SliderResponse>
 
-  // @FormUrlEncoded
-  // @POST("test")
-  // fun test(
-  //     @Field("category_id") categoryId : Int
-  // ): Call<TestResponse>
+    @FormUrlEncoded
+    @POST("test")
+    fun test(
+        @Field("category_id") categoryId : Int,
+        @Field("page_no") pageNo : Int
+    ): Call<TestResponse>
 
     @FormUrlEncoded
     @POST("questions")
@@ -47,22 +50,6 @@ interface RetrofitAPI {
     ) : Call<QuestionResponse?>?
 
     @POST("questions")
-    fun questions(@Body questionResponse: QuestionRequest): Call<QuestionResponse>
+    fun questions(@Field("test_id") testId: Int): Call<QuestionResponse>
 
-    @FormUrlEncoded
-    @POST("add-details")
-    fun addDetails(
-        @Field ("user_id") userId: Int,
-        @Field ("name") name: String,
-        @Field ("email") email: String,
-        @Field ("dob") dob: Int,
-        @Field("category_id") categoryId: Int,
-        @Field("address") address : String
-    )
-
-    @POST("add-details")
-    fun addDetail(@Body addDetailRequest: AddDetailRequest):Call<AddDetailsResponse>
-
-    @POST("blogs")
-    fun blogs():Call<BlogsResponse>
 }

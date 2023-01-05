@@ -1,5 +1,7 @@
-package com.dr.udaan.retrofit.Pojo
+package com.dr.udaan.api.retrofit.Pojo
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class TestResponse (
@@ -10,7 +12,9 @@ data class TestResponse (
 
 )
 
+@Entity(tableName = "tests")
 data class TestData (
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id"          ) var id          : Int?              = null,
     @SerializedName("category_id" ) var categoryId   : Int?              = null,
     @SerializedName("title"       ) var title       : String?           = null,
@@ -21,23 +25,5 @@ data class TestData (
     @SerializedName("deleted"     ) var deleted     : String?           = null,
     @SerializedName("created_at"  ) var createdAt   : String?           = null,
     @SerializedName("updated_at"  ) var updatedAt   : String?           = null,
-    @SerializedName("question"    ) var question    : ArrayList<QuestionData> = arrayListOf()
-)
-
-
-
-data class Question (
-
-    @SerializedName("id"         ) var id        : Int?    = null,
-    @SerializedName("question"   ) var question  : String? = null,
-    @SerializedName("solution"   ) var solution  : String? = null,
-    @SerializedName("option_a"   ) var optionA   : String? = null,
-    @SerializedName("option_b"   ) var optionB   : String? = null,
-    @SerializedName("option_c"   ) var optionC   : String? = null,
-    @SerializedName("option_d"   ) var optionD   : String? = null,
-    @SerializedName("answer"     ) var answer    : String? = null,
-    @SerializedName("status"     ) var status    : String? = null,
-    @SerializedName("created_at" ) var createdAt : String? = null,
-    @SerializedName("updated_at" ) var updatedAt : String? = null
-
+    @SerializedName("is_saved"  ) var is_saved   : Boolean           = false,
 )

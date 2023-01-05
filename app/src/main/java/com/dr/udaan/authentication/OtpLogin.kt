@@ -14,8 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.authentication.Register.Companion.resendToken
 import com.dr.udaan.databinding.FragmentOtpLoginBinding
-import com.dr.udaan.retrofit.AllRequest.RegisterRequest
-import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.AllRequest.RegisterRequest
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
@@ -69,8 +69,14 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                 Snackbar.make(binding.root, "Incorrect OTP", Snackbar.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            showLoading()
-            verifyPhoneNumberWithCode(verificationId, binding.otp.text.toString())
+            // For Testing
+            CoroutineScope(IO).launch {
+                register(phone, password)
+            }
+
+            // In Prod
+//            showLoading()
+//            verifyPhoneNumberWithCode(verificationId, binding.otp.text.toString())
         }
 
         binding.resend.setOnClickListener {
@@ -139,9 +145,12 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
 
     private suspend fun register(mobileNo: String, password: String) {
 
+        showLoading()
+
         val request = RegisterRequest(
             "1", mobileNo, password, password
         )
+
         try {
             val response = Retrofitinstance.getRetrofit().register(request).await()
              dismissLoading()
@@ -151,16 +160,12 @@ class OtpLogin : BaseFragment<FragmentOtpLoginBinding>() {
                     if (response.message == "Your mobile no is already registered.! Please Login") {
                         findNavController().navigate(R.id.login)
                     } else {
-                        Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, response.message ?: "Something went wrong", Toast.LENGTH_SHORT).show()
                     }
                     return@withContext
                 }
                 return
             }
-
-           // val otp = response.otp
-           // val userId = response.userId
-           // val bundle = Bundle()
 
             withContext(Main) {
                 Toast.makeText(mContext, "Registration success", Toast.LENGTH_SHORT).show()

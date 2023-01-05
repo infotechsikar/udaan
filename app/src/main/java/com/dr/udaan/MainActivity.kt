@@ -1,5 +1,6 @@
 package com.dr.udaan
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,33 +15,49 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.dr.udaan.MyApp.Companion.razorPayPaymentData
 import com.dr.udaan.databinding.ActivityMainBinding
+import com.dr.udaan.room.UserData
+import com.dr.udaan.ui.BaseActivity
+import com.razorpay.Checkout
+import com.razorpay.PayloadHelper
+import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
-    lateinit var mDrawerLayout: DrawerLayout
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+    override fun init() {
 
         navHostFragment =
             (supportFragmentManager.findFragmentById(binding.container.id) as NavHostFragment?)!!
         navController = navHostFragment.navController
         drawerLayout = binding.drawerLayout
 
-        navigate()
+        Checkout.preload(this)
+
+        destinationControl()
+
+        if (navigate()) {
+            return
+        }
+
+        razorPayPaymentData.observeForever {
+            if (it.isStartPayment) {
+                startPayment()
+            }
+        }
+
         navView()
         actions()
         setUpNavComponent()
         setBottomNavigation()
-        destinationControl()
-        setContentView(binding.root)
+
     }
+
 
     private fun setUpNavComponent() {
         navHostFragment =
@@ -104,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    fun navView(){
+    private fun navView(){
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.exam -> {
@@ -161,4 +178,45 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun startPayment() {
+        /*
+        *  You need to pass the current activity to let Razorpay create CheckoutActivity
+        * */
+        val activity: Activity = this
+        val co = Checkout()
+        co.setKeyID("<YOUR_KEY_ID>")
+
+        try {
+            val options = JSONObject()
+            options.put("name","Razorpay Corp")
+            options.put("description","Demoing Charges")
+            options.put("image","https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg")
+            options.put("theme.color", "#3399cc");
+            options.put("currency","INR");
+            options.put("order_id", "order_DBJOWzybf0sJbb");
+            options.put("amount","50000")//pass amount in currency subunits
+
+            val retryObj = JSONObject()
+            retryObj.put("enabled", true);
+            retryObj.put("max_count", 4);
+            options.put("retry", retryObj);
+
+            val prefill = JSONObject()
+            prefill.put("email","gaurav.kumar@example.com")
+            prefill.put("contact","9876543210")
+
+            options.put("prefill",prefill)
+            co.open(activity,options)
+
+        } catch (e: Exception) {
+            Toast.makeText(activity,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+
+    }
+
+    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
+
+
 }

@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class Test : Fragment() {
+
     lateinit var binding: FragmentTestBinding
     lateinit var mContext: Context
 

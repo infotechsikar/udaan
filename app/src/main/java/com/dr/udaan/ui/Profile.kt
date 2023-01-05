@@ -11,6 +11,7 @@ import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentProfile2Binding
 
 class Profile : Fragment() {
+
   lateinit var binding: FragmentProfile2Binding
   lateinit var mContext: Context
 

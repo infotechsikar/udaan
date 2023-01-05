@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -18,26 +17,22 @@ import com.dr.udaan.adapter.AdapterExams
 import com.dr.udaan.adapter.AdapterSliderHome
 import com.dr.udaan.databinding.FragmentHomeBinding
 import com.dr.udaan.databinding.RowItemBlogBinding
-import com.dr.udaan.databinding.RowItemExamBinding
 import com.dr.udaan.other.APIData
-import com.dr.udaan.retrofit.Pojo.Blogdata
-import com.dr.udaan.retrofit.Pojo.CategoryData
-import com.dr.udaan.retrofit.Pojo.SliderData
-import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.Pojo.CategoryData
+import com.dr.udaan.api.retrofit.Pojo.SliderData
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import retrofit2.await
 import java.lang.Runnable
 
-class Home : Fragment() {
-    lateinit var binding: FragmentHomeBinding
-    lateinit var mContext: Context
-    private var handler = Handler(Looper.getMainLooper())
-    private lateinit var runnable: Runnable
+class Home : BaseFragment<FragmentHomeBinding>() {
+
+    var handler = Handler(Looper.getMainLooper())
+    lateinit var runnable: Runnable
     private val list = ArrayList<ModelSlider>()
     private var sliderImages = arrayListOf<String>()
-    private var listBlog = ArrayList<Blogdata>()
 
     override fun onDestroy() {
         if (this::runnable.isInitialized) {
@@ -48,113 +43,76 @@ class Home : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-          action()
+
+        binding.rv.adapter = AdapterBlog()
+        action()
+
         CoroutineScope(IO)
             .launch {
-//            getSlider()
-//            withContext(Dispatchers.Main) {
-//                binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//                val adapter = AdapterSliderHome(binding.vp, sliderImages)
-//                binding.vp.adapter = adapter
-//
-//                runnable = kotlinx.coroutines.Runnable {
-//                    binding.vp.currentItem = binding.vp.currentItem + 1
-//                    handler.postDelayed(runnable, 3000)
-//                }
-//                handler.postDelayed(runnable, 3000)
-//            }
-                getCategories()
-                blogs()
+                getSlider()
+                withContext(Main) {
+                    binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                    val adapter = AdapterSliderHome(binding.vp, sliderImages)
+                    binding.vp.adapter = adapter
 
+                    runnable = kotlinx.coroutines.Runnable {
+                        binding.vp.currentItem = binding.vp.currentItem + 1
+                        handler.postDelayed(runnable, 3000)
+                    }
+                    handler.postDelayed(runnable, 3000)
+                }
+                getCategories()
             }
         return binding.root
     }
 
     fun action() {
-
         binding.viewAll.setOnClickListener() {
             findNavController().navigate(R.id.exam)
         }
-        binding.viewAllBlog.setOnClickListener(){
-            findNavController().navigate(R.id.blogs)
-        }
-        binding.notes.setOnClickListener(){
-            findNavController().navigate(R.id.notes)
-        }
-        binding.save.setOnClickListener(){
-            findNavController().navigate(R.id.saved)
-        }
-        binding.score.setOnClickListener(){
-            findNavController().navigate(R.id.scoreBoard)
-        }
-        binding.growth.setOnClickListener(){
-            findNavController().navigate(R.id.growth)
+    }
+
+
+    private suspend fun getSlider() {
+
+        try {
+
+            val response = Retrofitinstance.getRetrofit().sliders().await().categoryData
+
+            for (data in response) {
+                sliderImages.add(data.sliderImage!!)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
-    private fun slider() {
-        binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
-//        list.add(ModelSlider("https://firebasestorage.googleapis.com/v0/b/sinfode-5ebe3.appspot.com/o/upsc.png?alt=media&token=1387b999-758b-4c6e-a836-5ad2fc896de5"))
+    private suspend fun getCategories() {
 
-     //   val adapterCurrentNews = AdapterSlider(binding.vp, list)
+        try {
 
-    //    binding.vp.adapter = adapterCurrentNews
-        runnable = kotlinx.coroutines.Runnable {
-            binding.vp.currentItem = binding.vp.currentItem + 1
-            handler.postDelayed(runnable, 3000)
-        }
+            val categoryData = APIData.fetchCategories()
+            val cList = ArrayList<CategoryData>()
 
-        handler.postDelayed(runnable, 3000)
-
-//        binding.vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                handler.removeCallbacks(runnable)
-//                handler.postDelayed(runnable, 2000)
-//            }
-//        }
-//        )
-    }
-
-    private suspend fun getSlider(){
-        var sliderData = ArrayList<SliderData>()
-     //   val response = Retrofitinstance.getRetrofit().sliders().await().categoryData
-//        Log.d("SINFOO",response.toString())
-     //   for (data in response) {
-//            Log.d("-->", data.id!!.toString())
-        //    sliderImages.add(data.sliderImage!!)
-     // }
-      //  sliderData = response.categoryData
-    }
-
-    private fun getCategories() {
-        CoroutineScope(IO)
-            .launch {
-                val categoryData = APIData.fetchCategories()
-                val cList = ArrayList<CategoryData>()
-
-                for (i in 0..3) {
-                    if (categoryData.size > i) {
-                        cList.add(categoryData[i])
-                    }
-                }
-                withContext(Main){
-                    binding.cl2.adapter = AdapterExams(cList,findNavController())
+            for (i in 0..3) {
+                if (categoryData.size > i) {
+                    cList.add(categoryData[i])
                 }
             }
-    }
 
-    private suspend fun blogs(){
-        val response = Retrofitinstance.getRetrofit().blogs().await()
-        listBlog = response.blogdata
-        withContext(Main){
-          binding.rv.adapter = AdapterBlog(findNavController(),listBlog)
+            withContext(Main) {
+                binding.cl2.adapter = AdapterExams(cList, findNavController())
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+
+
     }
 
     override fun onAttach(context: Context) {
@@ -162,32 +120,25 @@ class Home : Fragment() {
         mContext = context
     }
 
-    inner class AdapterBlog( private val navController: NavController, private val list: ArrayList<Blogdata>) :
+    inner class AdapterBlog() :
         RecyclerView.Adapter<AdapterBlog.PlaceHolder>() {
-        inner class PlaceHolder(itemView: View,val dBinding: RowItemBlogBinding) : RecyclerView.ViewHolder(itemView) {}
+        inner class PlaceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {
             val binding =
                 RowItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PlaceHolder(binding.root,binding)
+            return PlaceHolder(binding.root)
         }
 
         override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
-             holder.dBinding.title.text = list[position].title
 
-            holder.itemView.setOnClickListener {
-                val blogId = list[position].id
-                val bundle = Bundle()
-                if (blogId != null) {
-                    bundle.putParcelable("blog",list[position])
-                }
-                navController.navigate(R.id.blogs,bundle)
-            }
         }
 
         override fun getItemCount(): Int {
-            return list.size
+            return 10
         }
+    }
 
-        }
+    override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
+
 }

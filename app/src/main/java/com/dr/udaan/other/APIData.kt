@@ -1,9 +1,9 @@
 package com.dr.udaan.other
 
-import com.dr.udaan.retrofit.AllRequest.TestRequest
-import com.dr.udaan.retrofit.Pojo.CategoryData
-import com.dr.udaan.retrofit.Pojo.TestData
-import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.AllRequest.TestRequest
+import com.dr.udaan.api.retrofit.Pojo.CategoryData
+import com.dr.udaan.api.retrofit.Pojo.TestData
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import retrofit2.await
 
 object APIData {

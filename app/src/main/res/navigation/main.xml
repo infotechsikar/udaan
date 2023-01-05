@@ -113,7 +113,7 @@
 
     <fragment
         android:id="@+id/tests"
-        android:name="com.dr.udaan.other.Tests"
+        android:name="com.dr.udaan.other.tests.Tests"
         android:label="fragment_tests"
         tools:layout="@layout/fragment_tests"
         />

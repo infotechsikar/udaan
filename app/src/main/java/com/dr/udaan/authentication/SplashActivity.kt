@@ -7,28 +7,30 @@ import android.os.Looper
 import com.dr.udaan.MainActivity
 import com.dr.udaan.base.BaseActivity
 import com.dr.udaan.databinding.ActivitySplashBinding
+import com.dr.udaan.util.AppFunctions
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
+
     private val handler = Handler(Looper.getMainLooper())
     lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppFunctions.setUserVerified(this)
         setDelay()
         actions()
     }
 
     private fun setDelay() {
         runnable = Runnable {
-            startAnimation()
-            //{
-//            handler.postDelayed(runnable, 1500)      // if user is logged - in
-//            runnable = Runnable {
-//                startActivity(Intent(this, MainActivity::class.java))
-//            }
+            if(AppFunctions.isUserVerified(this))  {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                startAnimation()
+            }
         }
         handler.postDelayed(
-            runnable, 300
+            runnable, if(AppFunctions.isUserVerified(this)) 2000 else 300
         )
     }
     private fun startAnimation() {

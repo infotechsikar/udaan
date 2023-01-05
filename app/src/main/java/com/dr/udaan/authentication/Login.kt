@@ -10,9 +10,13 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentLoginBinding
-import com.dr.udaan.retrofit.AllRequest.LoginRequest
-import com.dr.udaan.retrofit.Retrofitinstance
-import com.dr.udaan.retrofit.Retrofitinstance.getRetrofit
+import com.dr.udaan.api.retrofit.AllRequest.LoginRequest
+import com.dr.udaan.api.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.Retrofitinstance.getRetrofit
+import com.dr.udaan.room.MyDatabase
+import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.util.AppFunctions
+import com.dr.udaan.util.SharedPref
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -21,25 +25,21 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.await
 
-class Login : Fragment() {
-    lateinit var binding: FragmentLoginBinding
-    lateinit var mContext: Context
+class Login : BaseFragment<FragmentLoginBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
-        binding = FragmentLoginBinding.inflate(layoutInflater)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         action()
-        return binding.root
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun action() {
+
         binding.back.setOnClickListener(){
             findNavController().popBackStack()
         }
         
         binding.login.setOnClickListener {
+
             if (binding.phone.text.toString().trim().isEmpty()){
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
@@ -50,19 +50,37 @@ class Login : Fragment() {
                 return@setOnClickListener
             }
 
-            if (binding.passwords.text.toString().length != 8){
-                binding.passwords.error = "Enter Atleast 8 Characters"
+            if (binding.passwords.text.toString().length < 8){
+                binding.passwords.error = "Enter at least 8 Characters"
                 return@setOnClickListener
             }
             val mobileNo = binding.phone.text.toString()
             val password = binding.passwords.text.toString()
 
+            showLoading()
             CoroutineScope(IO).launch {
-                val response = Retrofitinstance.getRetrofit().login(mobileNo,password).await()
-
-                withContext(Dispatchers.Main){
-                    findNavController().navigate(R.id.home)
+                try {
+                    val response = getRetrofit().login(mobileNo,password).await()
+                    withContext(Main) {
+                        dismissLoading()
+                        if (response.success == true && response.userData != null) {
+                            try {
+                                AppFunctions.setUserVerified(mContext)
+                                MyDatabase.getDatabase(mContext)
+                                    .userData().insert(response.userData!!)
+                                findNavController().navigate(R.id.home)
+                            } catch (e: Exception){
+                                e.printStackTrace()
+                            }
+                        } else {
+                            Toast.makeText(mContext, response.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    dismissLoading()
+                    Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
+
             }
         }
 
@@ -78,6 +96,10 @@ class Login : Fragment() {
        override fun onAttach(context: Context) {
           super.onAttach(context)
           mContext = context
+    }
+
+    override fun getViewBinding(): FragmentLoginBinding {
+        return FragmentLoginBinding.inflate(layoutInflater)
     }
 
 }

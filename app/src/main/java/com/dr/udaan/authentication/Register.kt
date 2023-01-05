@@ -27,7 +27,9 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         auth = Firebase.auth
+
         callBacks()
         action()
     }
@@ -39,22 +41,32 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
         }
 
         binding.continues.setOnClickListener {
+
             if (binding.phone.text.toString().trim().isEmpty()) {
                 binding.phone.error = "Enter your phone number"
                 return@setOnClickListener
             }
-
-            if (binding.password.text.toString().isEmpty()){
-
+            if (binding.password.text.toString().trim().isEmpty()) {
+                binding.password.error = "Enter your passwords here"
+                return@setOnClickListener
             }
-            if (binding.password.text.toString().trim().length != 8){
-                binding.password.error = "Enter Least 8 Characters"
+            if (binding.password.text.toString().length < 8){
+                binding.password.error = "Enter at least 8 Characters"
                 return@setOnClickListener
             }
 
             val mobileNO = binding.phone.text.toString().trim()
-            showLoading()
-            sendOtp("+91$mobileNO")
+
+            // For testing
+               val bundle = Bundle()
+                bundle.putString("phone", binding.phone.text.toString())
+                bundle.putString("password", binding.password.text.toString())
+                bundle.putString("verificationId", storedVerificationId)
+                findNavController().navigate(R.id.otpLogin, bundle)
+
+        // In Prod
+//            showLoading()
+//            sendOtp("+91$mobileNO")
         }
 
         binding.login.setOnClickListener() {
@@ -96,7 +108,6 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                         }
                     }
                 }
-
                 catch (e: Exception){
                     e.printStackTrace()
                 }

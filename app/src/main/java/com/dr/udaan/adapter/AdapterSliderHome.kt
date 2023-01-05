@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.dr.udaan.R
 import com.dr.udaan.databinding.RowItemVpBinding
-import com.dr.udaan.retrofit.Pojo.SliderData
+import com.dr.udaan.api.retrofit.Pojo.SliderData
 
 class AdapterSliderHome(private val viewPager2: ViewPager2, private val list: ArrayList<String>): RecyclerView.Adapter<AdapterSliderHome.SliderHolder>() {
    inner class SliderHolder(itemView: View, val dBinding: RowItemVpBinding) : RecyclerView.ViewHolder(itemView) {

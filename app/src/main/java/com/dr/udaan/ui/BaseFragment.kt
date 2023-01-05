@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding 
 import com.dr.udaan.dialogs.Loading
 import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseFragment<T: ViewBinding>() : Fragment() {
+abstract class BaseFragment<T: ViewBinding>() : Fragment(), CoroutineScope {
 
     private lateinit var loading: Loading
     protected lateinit var binding: T
@@ -21,6 +24,9 @@ abstract class BaseFragment<T: ViewBinding>() : Fragment() {
         mContext = context
         super.onAttach(context)
     }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
 
     protected abstract fun getViewBinding(): T
 

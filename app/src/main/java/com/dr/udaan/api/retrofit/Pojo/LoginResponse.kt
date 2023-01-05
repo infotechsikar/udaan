@@ -1,6 +1,7 @@
-package com.dr.udaan.retrofit.Pojo
+package com.dr.udaan.api.retrofit.Pojo
 
 
+import com.dr.udaan.room.UserData
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponse (

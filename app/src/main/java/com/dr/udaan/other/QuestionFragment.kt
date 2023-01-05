@@ -3,22 +3,26 @@ package com.dr.udaan.other
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.widget.Toast
 import com.dr.udaan.databinding.FragmentQuestionBinding
-import com.dr.udaan.retrofit.Pojo.QuestionData
-import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.Pojo.QuestionData
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.util.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.await
 
 class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
 
-    private var questionsArrayList = arrayListOf<QuestionData>()
-    lateinit var test_id: String
+    //private var questionsArrayList = arrayListOf<QuestionData>()
+    var testId: Int = -1
     var list = ArrayList<QuestionData>()
     private var position = 0
     val duration = 0
@@ -27,12 +31,14 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        questionsArrayList = arguments?.getParcelableArrayList<QuestionData>("questionArrayList") as ArrayList<QuestionData>
 
-        binding.heading.text = questionsArrayList[0].question
+        testId = arguments?.getInt(Const.TEST_ID) ?: -1
+
+        binding.heading.text = ""
         actions()
         countDownTimer()
 
+        showLoading()
         CoroutineScope(IO)
             .launch {
               fetchQuestions()
@@ -83,10 +89,21 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
     }
 
     private suspend fun fetchQuestions() {
-         showLoading()
-        val response = Retrofitinstance.getRetrofit().question(1)?.await()?.QuestionData
-        list = ArrayList(response ?: emptyList())
-        dismissLoading()
+
+        try {
+            val response = Retrofitinstance.getRetrofit().question(testId)?.await()
+            list = ArrayList(response?.question_data ?: emptyList())
+            withContext(Main) {
+                dismissLoading()
+            }
+        } catch (e: Exception) {
+            Log.d("TAG", "fetchQuestions: ${e.message}")
+            e.printStackTrace()
+            withContext(Main) {
+                dismissLoading()
+            }
+        }
+
     }
 
     private fun actions() {

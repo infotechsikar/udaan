@@ -12,11 +12,14 @@ abstract class BaseActivity<T: ViewBinding>() : AppCompatActivity() {
 
     protected abstract fun getViewBinding(): T
 
+    abstract fun init()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
         loading = Loading(this).build()
+        init()
     }
 
     fun showLoading() {

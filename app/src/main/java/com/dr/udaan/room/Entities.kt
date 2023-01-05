@@ -1,16 +1,28 @@
-package com.dr.udaan.retrofit.Pojo
+package com.dr.udaan.room
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
- data class VerifyOtpResponse(
-     @SerializedName("success"  ) var success: Boolean?  = null,
-     @SerializedName("message"  ) var message: String?   = null,
-     @SerializedName("userData" ) var userData: com.dr.udaan.retrofit.Pojo.UserData = UserData()
+//import androidx.room.ColumnInfo
+//import androidx.room.Entity
+//import androidx.room.PrimaryKey
+//
+//@Entity(tableName = "saved")
+//data class Saved(
+//
+//    @ColumnInfo(name = "id")
+//    @PrimaryKey(autoGenerate = true)
+//    val id: Int? = null,
+//
+//
+//
+//)
 
- )
-
+@Entity(tableName = "userData")
 data class UserData (
 
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id"                ) var id              : Int?    = null,
     @SerializedName("name"              ) var name            : String? = null,
     @SerializedName("email"             ) var email           : String? = null,
