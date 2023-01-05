@@ -34,10 +34,6 @@ class Login : Fragment() {
         return binding.root
     }
 
-    private suspend fun updateUi() {
-
-    }
-
     private fun action() {
         binding.back.setOnClickListener(){
             findNavController().popBackStack()

@@ -131,7 +131,6 @@
             android:drawableStart="@drawable/hide"
             android:textSize="17sp"
             />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

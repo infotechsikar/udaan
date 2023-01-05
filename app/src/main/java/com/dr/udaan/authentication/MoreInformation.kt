@@ -1,9 +1,7 @@
 package com.dr.udaan.authentication
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.dr.udaan.databinding.FragmentMoreInformationBinding
 import com.dr.udaan.retrofit.AllRequest.AddDetailRequest
 import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.ui.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.await
 
-class MoreInformation : Fragment() {
-    lateinit var binding: FragmentMoreInformationBinding
-    lateinit var mContext: Context
+class MoreInformation : BaseFragment<FragmentMoreInformationBinding>() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +35,25 @@ class MoreInformation : Fragment() {
             findNavController().popBackStack()
         }
         binding.verify.setOnClickListener(){
+            if (binding.name.text.toString().isEmpty()){
+                binding.name.error = "Enter your name number"
+            }
+            if (binding.emails.text.toString().isEmpty()){
+                binding.emails.error = "Enter your email number"
+            }
+            if (binding.phoneNumbers.text.toString().isEmpty()){
+                binding.phoneNumbers.error = "Enter your phone number"
+            }
+            if (binding.birth.text.toString().isEmpty()){
+                binding.birth.error = "Enter your date of birth here"
+            }
+            if (binding.categorys.text.toString().isEmpty()){
+                binding.categorys.error = "Enter your Category here "
+            }
             Toast.makeText(mContext, "verification successful", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private suspend fun addDetails(){
         val request =AddDetailRequest(
@@ -49,12 +62,9 @@ class MoreInformation : Fragment() {
         val response = Retrofitinstance.getRetrofit().addDetail(request).await()
         Log.d("INFO",response.data.toString())
 
-
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext = context
-    }
+    override fun getViewBinding()= FragmentMoreInformationBinding.inflate(layoutInflater)
+
 
 }

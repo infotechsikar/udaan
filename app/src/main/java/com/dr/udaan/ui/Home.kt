@@ -50,7 +50,6 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-
           action()
         CoroutineScope(IO)
             .launch {
@@ -152,13 +151,10 @@ class Home : Fragment() {
 
     private suspend fun blogs(){
         val response = Retrofitinstance.getRetrofit().blogs().await()
-
         listBlog = response.blogdata
-
         withContext(Main){
           binding.rv.adapter = AdapterBlog(findNavController(),listBlog)
         }
-
     }
 
     override fun onAttach(context: Context) {
@@ -177,19 +173,16 @@ class Home : Fragment() {
         }
 
         override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
-
              holder.dBinding.title.text = list[position].title
 
             holder.itemView.setOnClickListener {
                 val blogId = list[position].id
-                val args = Bundle()
+                val bundle = Bundle()
                 if (blogId != null) {
-                    args.putParcelable("blog",list[position])
-
+                    bundle.putParcelable("blog",list[position])
                 }
-                navController.navigate(R.id.blogs,args)
+                navController.navigate(R.id.blogs,bundle)
             }
-
         }
 
         override fun getItemCount(): Int {
