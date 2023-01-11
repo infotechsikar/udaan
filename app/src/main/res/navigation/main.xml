@@ -106,7 +106,7 @@
 
     <fragment
         android:id="@+id/test"
-        android:name="com.dr.udaan.other.Test"
+        android:name="com.dr.udaan.other.tests.savedtest.SavedTestsContainer"
         android:label="fragment_test"
         tools:layout="@layout/fragment_test"
         />
@@ -120,7 +120,7 @@
 
     <fragment
         android:id="@+id/testSets"
-        android:name="com.dr.udaan.other.TestSets"
+        android:name="com.dr.udaan.other.tests.savedtest.SavedTests"
         android:label="fragment_test_sets"
         tools:layout="@layout/fragment_test_sets"
         />
@@ -151,21 +151,24 @@
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting"
         />
+
     <fragment
         android:id="@+id/blogs"
         android:name="com.dr.udaan.other.Blogs"
         android:label="fragment_blogs"
         tools:layout="@layout/fragment_blogs"
         />
+
     <fragment
         android:id="@+id/growth"
         android:name="com.dr.udaan.ui.Growth"
         android:label="fragment_growth"
         tools:layout="@layout/fragment_growth"
         />
+
     <fragment
         android:id="@+id/notes"
-        android:name="com.dr.udaan.ui.Notes"
+        android:name="com.dr.udaan.notes.Notes"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes"
         />
@@ -181,5 +184,25 @@
         android:label="fragment_score_board"
         tools:layout="@layout/fragment_score_board"
         />
+    <fragment
+        android:id="@+id/notesEditor"
+        android:name="com.dr.udaan.notes.NotesEditor"
+        android:label="fragment_notes_editor"
+        tools:layout="@layout/fragment_notes_editor" />
+    <fragment
+        android:id="@+id/notesViewer"
+        android:name="com.dr.udaan.notes.NotesViewer"
+        android:label="fragment_notes_viewer"
+        tools:layout="@layout/fragment_notes_viewer" />
+    <fragment
+        android:id="@+id/contactUs"
+        android:name="com.dr.udaan.nevigation.ContactUs"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/privacyPolicy"
+        android:name="com.dr.udaan.nevigation.PrivacyPolicy"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
 
 </navigation>

@@ -5,6 +5,7 @@ import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import com.dr.udaan.api.retrofit.Pojo.TestData
 import com.dr.udaan.api.retrofit.Retrofitinstance
 import retrofit2.await
+import retrofit2.awaitResponse
 
 object APIData {
 
@@ -13,8 +14,12 @@ object APIData {
         var categoryData = ArrayList<CategoryData>()
 
         try {
-            val response = Retrofitinstance.getRetrofit().categories().await()
-            categoryData = response.categoryData
+            val response = Retrofitinstance.getRetrofit().categories().awaitResponse()
+            if (response.isSuccessful){
+
+                categoryData = response.body()!!.categoryData
+            }
+
         }
 
          catch (e: Exception) {

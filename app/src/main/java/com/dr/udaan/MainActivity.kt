@@ -1,26 +1,21 @@
 package com.dr.udaan
 
 import android.app.Activity
-import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.dr.udaan.MyApp.Companion.razorPayPaymentData
 import com.dr.udaan.databinding.ActivityMainBinding
-import com.dr.udaan.room.UserData
 import com.dr.udaan.ui.BaseActivity
 import com.razorpay.Checkout
-import com.razorpay.PayloadHelper
 import org.json.JSONObject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -30,12 +25,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
 
+
     override fun init() {
 
         navHostFragment =
             (supportFragmentManager.findFragmentById(binding.container.id) as NavHostFragment?)!!
         navController = navHostFragment.navController
         drawerLayout = binding.drawerLayout
+       // actionBarDrawerToggle.syncState()
 
         Checkout.preload(this)
 
@@ -67,7 +64,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun destinationControl() {
         navController.addOnDestinationChangedListener { _, navDestination, _ ->
-
             Log.d("TAG", "destinationControl: ${navDestination.displayName}")
             when (navDestination.id) {
                 R.id.home -> {
@@ -126,6 +122,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when (menuItem.itemId) {
                 R.id.exam -> {
                    navController.navigate(R.id.exam)
+
                     true
                 }
                 R.id.library -> {
@@ -139,6 +136,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
                 R.id.support -> {
                     Toast.makeText(this, "support", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.contactUs ->{
+                    navController.navigate(R.id.contactUs)
+                    true
+                }
+                R.id.privacyPolicy ->{
+                    navController.navigate(R.id.privacyPolicy)
                     true
                 }
                 else -> {

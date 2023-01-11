@@ -15,10 +15,8 @@ import com.dr.udaan.util.Const
 
 class AdapterExams(private val list: ArrayList<CategoryData>, private val navController: NavController):
         RecyclerView.Adapter<AdapterExams.ExamHolder>() {
-
         inner class ExamHolder(itemView: View, val dBinding: RowItemExamBinding)
             : RecyclerView.ViewHolder(itemView) {
-
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamHolder {
@@ -28,7 +26,6 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
 
         override fun onBindViewHolder(holder: ExamHolder, position: Int) {
             holder.dBinding.coursesName.text = list[position].categoryName
-
             Glide.with(holder.itemView.context)
                 .load(list[position].categoryImage)
                 .into(holder.dBinding.imgExam)

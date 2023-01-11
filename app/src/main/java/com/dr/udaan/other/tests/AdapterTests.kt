@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.dr.udaan.R
 import com.dr.udaan.databinding.RowItemExamsBinding
-import com.dr.udaan.other.Test
 import com.dr.udaan.api.retrofit.Pojo.TestData
 import com.dr.udaan.util.Const
 

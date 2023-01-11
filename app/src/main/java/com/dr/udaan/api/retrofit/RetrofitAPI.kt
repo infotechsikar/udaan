@@ -5,6 +5,8 @@ import com.dr.udaan.api.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.api.retrofit.AllRequest.ResendOtpRequest
 import com.dr.udaan.api.retrofit.AllRequest.VerifyOtpRequest
 import com.dr.udaan.api.retrofit.Pojo.*
+import com.dr.udaan.api.retrofit.AllRequest.AddDetailRequest
+import com.dr.udaan.retrofit.Pojo.AddDetailsResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -51,5 +53,22 @@ interface RetrofitAPI {
 
     @POST("questions")
     fun questions(@Field("test_id") testId: Int): Call<QuestionResponse>
+
+    @FormUrlEncoded
+    @POST("add-details")
+    fun addDetails(
+        @Field ("user_id") userId: Int,
+        @Field ("name") name: String,
+        @Field ("email") email: String,
+        @Field ("dob") dob: String,
+        @Field("category_id") categoryId: Int,
+        @Field("address") address : String
+    ) : Call<AddDetailsResponse>
+
+    @POST("add-details")
+    fun addDetail(@Body addDetailRequest: AddDetailRequest):Call<AddDetailsResponse>
+
+    @POST("blogs")
+    fun blogs():Call<BlogsResponse>
 
 }

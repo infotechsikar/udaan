@@ -41,6 +41,7 @@ class Tests : BaseFragment<FragmentTestsBinding>() {
         withContext(Main) {
             showLoading()
         }
+
         TestsAPI.fetchTests(categoryId, pageNo)
         withContext(Main) {
             dismissLoading()
@@ -61,7 +62,6 @@ class Tests : BaseFragment<FragmentTestsBinding>() {
                 dismissLoading()
             }
         }
-
     }
 
     override fun getViewBinding() = FragmentTestsBinding.inflate(layoutInflater)

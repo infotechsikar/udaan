@@ -95,7 +95,6 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                 dismissLoading()
 
                 try {
-
                     when (e) {
                         is FirebaseAuthInvalidCredentialsException -> {
                             Toast.makeText(mContext, "Invalid request", Toast.LENGTH_SHORT).show()

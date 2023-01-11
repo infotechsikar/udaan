@@ -1,5 +1,6 @@
 package com.dr.udaan.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.dr.udaan.api.retrofit.Pojo.SliderData
 
 class AdapterSliderHome(private val viewPager2: ViewPager2, private val list: ArrayList<String>): RecyclerView.Adapter<AdapterSliderHome.SliderHolder>() {
    inner class SliderHolder(itemView: View, val dBinding: RowItemVpBinding) : RecyclerView.ViewHolder(itemView) {
-       var image: ImageView
+       private var image: ImageView
        fun setData(image: String?) {
            Glide.with(itemView.context)
                .load(image)
@@ -24,9 +25,9 @@ class AdapterSliderHome(private val viewPager2: ViewPager2, private val list: Ar
            image = itemView.findViewById(R.id.image)
        }
 
-
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private val runnable = Runnable {
         list.addAll(list)
         notifyDataSetChanged()

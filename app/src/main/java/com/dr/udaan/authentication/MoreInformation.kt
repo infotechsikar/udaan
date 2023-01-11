@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.databinding.FragmentMoreInformationBinding
-import com.dr.udaan.retrofit.AllRequest.AddDetailRequest
-import com.dr.udaan.retrofit.Retrofitinstance
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +22,7 @@ class MoreInformation : BaseFragment<FragmentMoreInformationBinding>() {
         savedInstanceState: Bundle?): View {
         binding = FragmentMoreInformationBinding.inflate(layoutInflater)
         action()
-        CoroutineScope(Dispatchers.IO)
-            .launch {
-              addDetails()
-            }
+
         return binding.root
     }
 
@@ -34,37 +30,63 @@ class MoreInformation : BaseFragment<FragmentMoreInformationBinding>() {
         binding.skip.setOnClickListener() {
             findNavController().popBackStack()
         }
+
         binding.verify.setOnClickListener(){
-            if (binding.name.text.toString().isEmpty()){
-                binding.name.error = "Enter your name number"
+
+            if (verifyData()){
+                addDetails()
             }
-            if (binding.emails.text.toString().isEmpty()){
-                binding.emails.error = "Enter your email number"
+            else{
+                Log.d("ERROR","ERROR")
             }
-            if (binding.phoneNumbers.text.toString().isEmpty()){
-                binding.phoneNumbers.error = "Enter your phone number"
-            }
-            if (binding.birth.text.toString().isEmpty()){
-                binding.birth.error = "Enter your date of birth here"
-            }
-            if (binding.categorys.text.toString().isEmpty()){
-                binding.categorys.error = "Enter your Category here "
-            }
-            Toast.makeText(mContext, "verification successful", Toast.LENGTH_SHORT).show()
+
+
         }
     }
 
+    private fun verifyData() : Boolean {
+        if (binding.name.text.toString().isEmpty()){
+            binding.name.error = "Enter your name number"
+            return false
+        }
+        if (binding.emails.text.toString().isEmpty()){
+            binding.emails.error = "Enter your email number"
+            return false
+        }
+        if (binding.phoneNumbers.text.toString().isEmpty()){
+            binding.phoneNumbers.error = "Enter your phone number"
+            return false
+        }
+        if (binding.birth.text.toString().isEmpty()){
+            binding.birth.error = "Enter your date of birth here"
+            return false
+        }
+        if (binding.categorys.text.toString().isEmpty()){
+            binding.categorys.error = "Enter your Category here "
+            return  false
+        }
 
-    private suspend fun addDetails(){
-        val request =AddDetailRequest(
-            "1","priya","add@gmail.com","29-5-1990","1","kalyan marg"
-        )
-        val response = Retrofitinstance.getRetrofit().addDetail(request).await()
-        Log.d("INFO",response.data.toString())
+        else {
+            Toast.makeText(mContext, "Verification successful", Toast.LENGTH_SHORT).show()
+            return true
+        }
+    }
+
+    private fun addDetails(){
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = Retrofitinstance.getRetrofit().addDetails(
+                26,binding.name.text.toString(),binding.emails.text.toString(),binding.birth.text.toString(),binding.categorys.text.toString().toInt(),"bhilwara").await()
+
+            Log.d("INFO",response.data.toString())
+        }
+
+//        val request = AddDetailRequest(26,binding.name.text.toString(),binding.emails.text.toString(),
+//            binding.birth.text.toString(),binding.categorys.text.toString().toInt(),"jaipur")
+
 
     }
 
     override fun getViewBinding()= FragmentMoreInformationBinding.inflate(layoutInflater)
-
 
 }

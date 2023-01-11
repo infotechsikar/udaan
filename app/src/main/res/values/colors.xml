@@ -11,5 +11,7 @@
     <color name="sky_blue">#0ACFF3</color>
     <color name="primary_dark">#355b99</color>
     <color name="light_black">#AB000000</color>
+    <color name="main">#2D8FC5</color>
+    <color name="main_light">#E6F0FF</color>
     <color name="cardview_dark_background">#FF424242</color>
 </resources>

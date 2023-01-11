@@ -1,4 +1,4 @@
-package com.dr.udaan.other
+package com.dr.udaan.other.tests.savedtest
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,7 +13,7 @@ class TestPageViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Life
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = Tests()
-            1 -> fragment = TestSets()
+            1 -> fragment = SavedTests()
         }
         return fragment!!
     }

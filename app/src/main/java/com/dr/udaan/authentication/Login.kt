@@ -80,7 +80,6 @@ class Login : BaseFragment<FragmentLoginBinding>() {
                     dismissLoading()
                     Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
 

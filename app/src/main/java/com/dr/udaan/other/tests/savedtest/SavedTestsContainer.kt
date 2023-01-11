@@ -1,4 +1,4 @@
-package com.dr.udaan.other
+package com.dr.udaan.other.tests.savedtest
 
 import android.content.Context
 import android.os.Bundle
@@ -11,7 +11,7 @@ import com.dr.udaan.databinding.FragmentTestBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class Test : Fragment() {
+class SavedTestsContainer : Fragment() {
 
     lateinit var binding: FragmentTestBinding
     lateinit var mContext: Context

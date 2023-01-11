@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="39dp"
+            android:layout_height="26dp"
             android:layout_margin="@dimen/_11sdp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:contentDescription="@null"
@@ -399,8 +399,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

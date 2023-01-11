@@ -1,4 +1,5 @@
-package com.dr.udaan.retrofit.Pojo
+package com.dr.udaan.api.retrofit.Pojo
+
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -22,4 +23,4 @@ data class Blogdata (
         @SerializedName("created_at"  ) var createdAt   : String? = null,
         @SerializedName("updated_at"  ) var updatedAt   : String? = null
 
-) : Parcelable
+):Parcelable
