@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentProfile2Binding
+import com.dr.udaan.util.AppFunctions
 
 class Profile : Fragment() {
 
@@ -30,6 +32,19 @@ class Profile : Fragment() {
         binding.cl2.setOnClickListener(){
             findNavController().navigate(R.id.resetPassword)
         }
+        binding.logOut.setOnClickListener {
+            AlertDialog.Builder(mContext)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes") {_,_->
+                    logOut()
+                }.setNegativeButton("No", null).create().show()
+        }
+    }
+
+    private fun logOut() {
+        AppFunctions.logOut(mContext)
+        findNavController().navigate(R.id.login)
     }
 
     override fun onAttach(context: Context) {

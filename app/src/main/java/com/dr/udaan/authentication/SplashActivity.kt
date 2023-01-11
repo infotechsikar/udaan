@@ -16,7 +16,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppFunctions.setUserVerified(this)
         setDelay()
         actions()
     }
@@ -25,6 +24,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         runnable = Runnable {
             if(AppFunctions.isUserVerified(this))  {
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             } else {
                 startAnimation()
             }
@@ -33,6 +33,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
             runnable, if(AppFunctions.isUserVerified(this)) 2000 else 300
         )
     }
+
     private fun startAnimation() {
         binding.llLogoAppName.animate().translationY(-150f).duration = 1000
         binding.slogan.animate().translationY(-150f).duration = 1000

@@ -21,6 +21,7 @@ import com.dr.udaan.other.APIData
 import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import com.dr.udaan.api.retrofit.Pojo.SliderData
 import com.dr.udaan.api.retrofit.Retrofitinstance
+import com.dr.udaan.util.AppFunctions
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -49,6 +50,10 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
         binding.rv.adapter = AdapterBlog()
         action()
+
+        if (!AppFunctions.isUserVerified(mContext)) {
+            findNavController().navigate(R.id.login)
+        }
 
         CoroutineScope(IO)
             .launch {

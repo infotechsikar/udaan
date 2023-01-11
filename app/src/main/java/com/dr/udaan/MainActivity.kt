@@ -41,9 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         destinationControl()
 
-        if (navigate()) {
-            return
-        }
+        navigate()
 
         razorPayPaymentData.observeForever {
             if (it.isStartPayment) {

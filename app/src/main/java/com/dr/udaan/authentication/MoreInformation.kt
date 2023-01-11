@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.databinding.FragmentMoreInformationBinding
 import com.dr.udaan.retrofit.AllRequest.AddDetailRequest
-import com.dr.udaan.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -59,8 +59,8 @@ class MoreInformation : BaseFragment<FragmentMoreInformationBinding>() {
         val request =AddDetailRequest(
             "1","priya","add@gmail.com","29-5-1990","1","kalyan marg"
         )
-        val response = Retrofitinstance.getRetrofit().addDetail(request).await()
-        Log.d("INFO",response.data.toString())
+//        val response = Retrofitinstance.getRetrofit().addDetail(request).await()
+//        Log.d("INFO",response.data.toString())
 
     }
 

@@ -22,7 +22,7 @@ class Blogs : BaseFragment<FragmentBlogsBinding>() {
         savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         if (arguments!= null){
-            blog = arguments?.getParcelable<Blogdata>("blog")!!
+            // blog = arguments?.getParcelable<Blogdata>("blog")!!
         }
       // webView =  binding.webView
       // webView.settings.javaScriptEnabled = true
