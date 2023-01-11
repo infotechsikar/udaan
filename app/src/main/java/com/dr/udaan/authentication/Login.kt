@@ -2,6 +2,7 @@ package com.dr.udaan.authentication
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.dr.udaan.api.retrofit.AllRequest.LoginRequest
 import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.api.retrofit.Retrofitinstance.getRetrofit
 import com.dr.udaan.room.MyDatabase
+import com.dr.udaan.room.UserData
 import com.dr.udaan.ui.BaseFragment
 import com.dr.udaan.util.AppFunctions
 import com.dr.udaan.util.SharedPref
@@ -66,9 +68,9 @@ class Login : BaseFragment<FragmentLoginBinding>() {
                         if (response.success == true && response.userData != null) {
                             try {
                                 AppFunctions.setUserVerified(mContext)
-                                MyDatabase.getDatabase(mContext)
-                                    .userData().insert(response.userData!!)
-                                findNavController().navigate(R.id.home)
+                                MyDatabase.getDatabase(mContext).userData().insert(response.userData!!)
+                                setUserData(response.userData!!)
+                             findNavController().navigate(R.id.home)
                             } catch (e: Exception){
                                 e.printStackTrace()
                             }
@@ -78,7 +80,12 @@ class Login : BaseFragment<FragmentLoginBinding>() {
                     }
                 } catch (e: Exception) {
                     dismissLoading()
-                    Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                    withContext(Dispatchers.Main){
+
+
+                        Toast.makeText(mContext, e.message.toString(), Toast.LENGTH_SHORT).show()
+                        Log.d("LOgin", "action: ${e.message}")
+                    }
                 }
             }
         }
@@ -92,7 +99,18 @@ class Login : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-       override fun onAttach(context: Context) {
+    private fun setUserData(userData: UserData) {
+
+        Toast.makeText(mContext, userData.name.toString(), Toast.LENGTH_SHORT).show()
+        AppFunctions.setUserName(mContext,userData.name.toString())
+        AppFunctions.setPhone(mContext,userData.mobileNo.toString())
+        AppFunctions.setEmail(mContext,userData.email.toString())
+        AppFunctions.setUserId(mContext,userData.id!!)
+
+
+    }
+
+    override fun onAttach(context: Context) {
           super.onAttach(context)
           mContext = context
     }

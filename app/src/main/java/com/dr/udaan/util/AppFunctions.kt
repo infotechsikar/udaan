@@ -26,12 +26,17 @@ object AppFunctions {
         return SharedPref.getString(mContext, USER_NAME).toString()
     }
 
+
     fun getEmail(mContext: Context) : String {
         return SharedPref.getString(mContext, EMAIL).toString()
     }
 
     fun getPhone(mContext: Context) : String {
         return SharedPref.getString(mContext, PHONE).toString()
+    }
+
+    fun getUserId(mContext: Context) :Int  {
+       return SharedPref.getInt(mContext, "user_id")
     }
 
     fun setUserName(mContext: Context, name : String)  {
@@ -44,6 +49,9 @@ object AppFunctions {
 
     fun setPhone(mContext: Context, phone : String)   {
         SharedPref.setString(mContext, PHONE, phone)
+    }
+    fun setUserId(mContext: Context, userId : Int)   {
+        SharedPref.setInt(mContext, "user_id", userId)
     }
 
     fun setProfileUrl(mContext: Context, profileUrl : String)  {

@@ -20,10 +20,10 @@ import org.json.JSONObject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navHostFragment: NavHostFragment
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
 
     override fun init() {
@@ -122,28 +122,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when (menuItem.itemId) {
                 R.id.exam -> {
                    navController.navigate(R.id.exam)
+                    drawerLayout.closeDrawer(GravityCompat.START)
 
                     true
                 }
                 R.id.library -> {
                     navController.navigate(R.id.library)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.settings -> {
                     navController.navigate(R.id.setting)
                     Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.support -> {
                     Toast.makeText(this, "support", Toast.LENGTH_SHORT).show()
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.contactUs ->{
                     navController.navigate(R.id.contactUs)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.privacyPolicy ->{
                     navController.navigate(R.id.privacyPolicy)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 else -> {

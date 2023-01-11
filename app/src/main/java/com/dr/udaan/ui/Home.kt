@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -25,12 +26,14 @@ import com.dr.udaan.other.APIData
 import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import com.dr.udaan.api.retrofit.Pojo.SliderData
 import com.dr.udaan.api.retrofit.Retrofitinstance
+import com.dr.udaan.util.AppFunctions
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import retrofit2.await
 import retrofit2.awaitResponse
 import java.lang.Runnable
+import kotlin.system.exitProcess
 
 class Home : BaseFragment<FragmentHomeBinding>() {
 
@@ -38,7 +41,7 @@ class Home : BaseFragment<FragmentHomeBinding>() {
     private lateinit var runnable: Runnable
     private val list = ArrayList<ModelSlider>()
     private var sliderImages = arrayListOf<String>()
-
+    private var backPressTime = 0L
     override fun onDestroy() {
         if (this::runnable.isInitialized) {
             handler.removeCallbacks(runnable)
@@ -54,6 +57,11 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
         action()
         getSlider()
+
+        if (!AppFunctions.isUserVerified(mContext)) {
+            findNavController().navigate(R.id.login)
+        }
+
         CoroutineScope(IO)
             .launch {
                 //getSlider()
@@ -90,6 +98,8 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         binding.score.setOnClickListener(){
             findNavController().navigate(R.id.scoreBoard)
         }
+
+        onBackPressed()
     }
 
     private  fun getSlider() {
@@ -171,4 +181,36 @@ class Home : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
+
+    private fun onBackPressed() {
+
+
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+
+                    // in here you can do logic when backPress is clicked
+
+                    if (backPressTime + 3000 > System.currentTimeMillis()) {
+                        onBackPressed()
+                        findNavController().popBackStack()
+                        exitProcess(0)
+
+                    } else {
+                        Toast.makeText(
+                            requireActivity().applicationContext,
+                            "Please click BACK again to exit",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    backPressTime = System.currentTimeMillis()
+
+
+                }
+            })
+
+
+
+    }
 }

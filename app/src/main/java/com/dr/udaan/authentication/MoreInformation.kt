@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.dr.udaan.databinding.FragmentMoreInformationBinding
 import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.util.AppFunctions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -76,7 +77,7 @@ class MoreInformation : BaseFragment<FragmentMoreInformationBinding>() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = Retrofitinstance.getRetrofit().addDetails(
-                26,binding.name.text.toString(),binding.emails.text.toString(),binding.birth.text.toString(),binding.categorys.text.toString().toInt(),"bhilwara").await()
+                AppFunctions.getUserId(mContext),binding.name.text.toString(),binding.emails.text.toString(),binding.birth.text.toString(),binding.categorys.text.toString().toInt(),"bhilwara").await()
 
             Log.d("INFO",response.data.toString())
         }

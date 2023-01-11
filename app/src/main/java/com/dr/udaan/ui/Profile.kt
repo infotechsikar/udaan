@@ -2,28 +2,32 @@ package com.dr.udaan.ui
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
 import com.dr.udaan.databinding.FragmentProfile2Binding
-import com.dr.udaan.databinding.LogoutLayoutBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.dr.udaan.room.MyDatabase
+import com.dr.udaan.util.AppFunctions
 
 class Profile : Fragment() {
 
-  lateinit var binding: FragmentProfile2Binding
-  lateinit var mContext: Context
-   lateinit var logoutBinding: LogoutLayoutBinding
+    lateinit var binding: FragmentProfile2Binding
+    lateinit var mContext: Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
         binding = FragmentProfile2Binding.inflate(layoutInflater)
         action()
+        binding.phoneNumber.text = MyDatabase.getDatabase(mContext).userData().getUserData()[0]
+            .mobileNo.toString()
+        Toast.makeText(mContext, AppFunctions.getUserName(mContext).toString(), Toast.LENGTH_SHORT).show()
+        binding.name.text = AppFunctions.getUserName(mContext).toString()
         return binding.root
     }
 
@@ -34,23 +38,21 @@ class Profile : Fragment() {
         binding.cl2.setOnClickListener(){
             findNavController().navigate(R.id.resetPassword)
         }
-
-        binding.cl4.setOnClickListener(){
-            val dialog = BottomSheetDialog(mContext)
-            logoutBinding = LogoutLayoutBinding.inflate(dialog.layoutInflater)
-            dialog.setContentView(logoutBinding.root)
-
-            dialog.show()
-
-            logoutBinding.cancel.setOnClickListener(View.OnClickListener {
-                Toast.makeText(mContext, "no ☺️", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            })
-            logoutBinding.logout.setOnClickListener(View.OnClickListener {
-                Toast.makeText(mContext, " yes \uD83D\uDE1E", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            })
+        binding.cl4.setOnClickListener {
+            AlertDialog.Builder(mContext)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes") {_,_->
+                    logOut()
+                }.setNegativeButton("No", null).create().show()
         }
+    }
+
+    private fun logOut() {
+        AppFunctions.logOut(mContext)
+        findNavController().popBackStack()
+        findNavController().navigate(R.id.login)
+
     }
 
     override fun onAttach(context: Context) {
