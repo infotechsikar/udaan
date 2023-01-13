@@ -1,13 +1,17 @@
 package com.dr.udaan.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.R
-import com.dr.udaan.databinding.FragmentRegisterBinding
+import com.dr.udaan.databinding.ActivityRegisterBinding
+import com.dr.udaan.ui.BaseActivity
 import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.util.Const
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
@@ -15,29 +19,34 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
 
-class Register : BaseFragment<FragmentRegisterBinding>() {
+class Register : BaseActivity<ActivityRegisterBinding>() {
 
     private lateinit var auth: FirebaseAuth
     private var storedVerificationId: String? = ""
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
-    companion object {
-        var resendToken: PhoneAuthProvider.ForceResendingToken? = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun init() {
         auth = Firebase.auth
-
         callBacks()
         action()
+
+        binding.back.isVisible = !(intent != null && intent.getBooleanExtra(Const.IS_FROM_SPLASH, false))
+
+    }
+
+    companion object {
+        var resendToken: PhoneAuthProvider.ForceResendingToken? = null
     }
 
     private fun action() {
 
         binding.back.setOnClickListener() {
-            findNavController().popBackStack()
+            startActivity(
+                Intent(
+                    mContext, Login::class.java
+                )
+            )
+            finish()
         }
 
         binding.continues.setOnClickListener {
@@ -50,35 +59,46 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                 binding.password.error = "Enter your passwords here"
                 return@setOnClickListener
             }
-            if (binding.password.text.toString().length < 8){
+            if (binding.password.text.toString().length < 8) {
                 binding.password.error = "Enter at least 8 Characters"
                 return@setOnClickListener
             }
 
             val mobileNO = binding.phone.text.toString().trim()
 
-            // For testing
-               val bundle = Bundle()
+            if (Const.TEST_MODE) {
+                // For testing
+                val bundle = Bundle()
                 bundle.putString("phone", binding.phone.text.toString())
                 bundle.putString("password", binding.password.text.toString())
                 bundle.putString("verificationId", storedVerificationId)
-                findNavController().navigate(R.id.otpLogin, bundle)
+                startActivity(
+                    Intent(
+                        mContext, Login::class.java
+                    )
+                )
+            } else {
+                showLoading()
+                sendOtp("+91$mobileNO")
+            }
 
-        // In Prod
-//            showLoading()
-//            sendOtp("+91$mobileNO")
+
         }
 
         binding.login.setOnClickListener() {
-            findNavController().navigate(R.id.login)
+            startActivity(
+                Intent(
+                    mContext, Login::class.java
+                )
+            )
         }
     }
 
-    private fun sendOtp(phoneNumber: String){
+    private fun sendOtp(phoneNumber: String) {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(activity as AppCompatActivity)
+            .setActivity(this)
             .setCallbacks(callbacks)
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
@@ -90,6 +110,7 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 dismissLoading()
             }
+
             override fun onVerificationFailed(e: FirebaseException) {
 
                 dismissLoading()
@@ -104,11 +125,11 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
                             Toast.makeText(mContext, "Too much requests", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
-                            Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, "Something went wrong", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
-                }
-                catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -116,21 +137,35 @@ class Register : BaseFragment<FragmentRegisterBinding>() {
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
-            )
-            {
+            ) {
                 dismissLoading()
                 storedVerificationId = verificationId
                 resendToken = token
-                val bundle = Bundle()
-                bundle.putString("phone", binding.phone.text.toString())
-                bundle.putString("password", binding.password.text.toString())
-                bundle.putString("verificationId", storedVerificationId)
-                findNavController().navigate(R.id.otpLogin, bundle)
+                startActivity(
+                    Intent(
+                        mContext, OtpLogin::class.java
+                    ).apply {
+                        putExtra(Const.PHONE, binding.phone.text.toString())
+                        putExtra(Const.PASSWORD, binding.password.text.toString())
+                        putExtra(Const.VERIFICATION_ID, storedVerificationId)
+                    }
+                )
             }
         }
     }
 
-    override fun getViewBinding() = FragmentRegisterBinding.inflate(layoutInflater)
+    override fun onBackPressed() {
+        startActivity(
+            Intent(
+                mContext, Login::class.java
+            )
+        )
+        finish()
+        super.onBackPressed()
+    }
+
+    override fun getViewBinding() = ActivityRegisterBinding.inflate(layoutInflater)
+
 
 }
 

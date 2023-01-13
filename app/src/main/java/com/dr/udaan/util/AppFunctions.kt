@@ -56,7 +56,7 @@ object AppFunctions {
 
 
     fun logOut(mContext: Context) {
-        SharedPref.deleteKey(mContext, AUTH_STATUS)
+        SharedPref.logOut(mContext)
     }
 
     // Privacy

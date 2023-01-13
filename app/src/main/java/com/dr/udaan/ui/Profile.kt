@@ -1,6 +1,7 @@
 package com.dr.udaan.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import com.dr.udaan.MyApp
 import com.dr.udaan.R
+import com.dr.udaan.authentication.Login
 import com.dr.udaan.databinding.FragmentProfile2Binding
 import com.dr.udaan.util.AppFunctions
 
@@ -44,7 +47,9 @@ class Profile : Fragment() {
 
     private fun logOut() {
         AppFunctions.logOut(mContext)
-        findNavController().navigate(R.id.login)
+        MyApp.myDatabase?.userData()?.deleteAll()
+        startActivity(Intent(mContext, Login::class.java))
+        activity?.finish()
     }
 
     override fun onAttach(context: Context) {

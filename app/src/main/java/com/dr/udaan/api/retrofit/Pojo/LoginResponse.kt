@@ -8,7 +8,7 @@ data class LoginResponse (
 
  @SerializedName("success"  ) var success  : Boolean?  = null,
  @SerializedName("message"  ) var message  : String?   = null,
- @SerializedName("token"    ) var token    : String?   = null,
+ @SerializedName("token"    ) var token    : Any?   = null,
  @SerializedName("userData" ) var userData : UserData? = UserData()
 
 )

@@ -41,8 +41,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         destinationControl()
 
-        navigate()
-
         razorPayPaymentData.observeForever {
             if (it.isStartPayment) {
                 startPayment()
@@ -106,28 +104,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    private fun navigate(): Boolean {
-        val page = intent.getStringExtra("page") ?: ""
-        if (page == "login") {
-            navController.navigate(R.id.login)
-            return true
-        }
-        else if (page == "register") {
-            navController.navigate(R.id.register)
-             return true
-        }
-        return false
-    }
-
     private fun navView(){
+        binding.navigationView.itemIconTintList = null
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
             when (menuItem.itemId) {
                 R.id.exam -> {
-                   navController.navigate(R.id.exam)
+                    binding.bottomNevigation.selectedItemId = R.id.exam
+                    // navController.navigate(R.id.exam)
                     true
                 }
                 R.id.library -> {
-                    navController.navigate(R.id.library)
+                    binding.bottomNevigation.selectedItemId = R.id.library
+                    //navController.navigate(R.id.library)
                     true
                 }
                 R.id.settings -> {
@@ -156,6 +145,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun actions() {
+
         binding.menu.setOnClickListener {
 
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -168,11 +158,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.notification.setOnClickListener(){
             navController.navigate(R.id.notification)
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+            return true
         }
         return super.onOptionsItemSelected(item)
     }

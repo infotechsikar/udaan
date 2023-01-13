@@ -29,9 +29,9 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
         override fun onBindViewHolder(holder: ExamHolder, position: Int) {
             holder.dBinding.coursesName.text = list[position].categoryName
 
-            Glide.with(holder.itemView.context)
-                .load(list[position].categoryImage)
-                .into(holder.dBinding.imgExam)
+//            Glide.with(holder.itemView.context)
+//                .load(list[position].categoryImage)
+//                .into(holder.dBinding.imgExam)
 
             holder.itemView.setOnClickListener {
                 val categoryId = list[position].id

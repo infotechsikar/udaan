@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseFragment<T: ViewBinding>() : Fragment(), CoroutineScope {
+abstract class BaseFragment<T: ViewBinding> : Fragment(), CoroutineScope {
 
     private lateinit var loading: Loading
     protected lateinit var binding: T

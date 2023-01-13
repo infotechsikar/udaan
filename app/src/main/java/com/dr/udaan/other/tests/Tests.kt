@@ -1,6 +1,7 @@
 package com.dr.udaan.other.tests
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.dr.udaan.MyApp.Companion.myDatabase
@@ -22,12 +23,10 @@ class Tests : BaseFragment<FragmentTestsBinding>() {
     private var categoryId = -1
     private var pageNo = 1
 
-    init {
-        categoryId = arguments?.getInt(Const.CATEGORY_ID) ?: -1
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        categoryId = arguments?.getInt(Const.EXAM_ID) ?: -1
 
         CoroutineScope(IO)
             .launch {
@@ -41,23 +40,25 @@ class Tests : BaseFragment<FragmentTestsBinding>() {
         withContext(Main) {
             showLoading()
         }
-        TestsAPI.fetchTests(categoryId, pageNo)
+        val list = TestsAPI.fetchTests(categoryId, pageNo)
         withContext(Main) {
             dismissLoading()
         }
-    }
-
-    private suspend fun initTests() {
 
         val adapterTests = AdapterTests(findNavController())
 
         withContext(Main) {
             binding.rv.adapter = adapterTests
+            adapterTests.updateData(list ?: emptyList())
         }
+    }
+
+    private suspend fun initTests() {
 
         myDatabase?.tests()?.getTestsLive()?.observe(viewLifecycleOwner) {
+            Log.d("TAG", "initTests: ${it.size}")
             CoroutineScope(Main).launch {
-                adapterTests.updateData(it)
+
                 dismissLoading()
             }
         }

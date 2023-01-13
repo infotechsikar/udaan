@@ -1,5 +1,6 @@
 package com.dr.udaan.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
@@ -14,9 +15,12 @@ abstract class BaseActivity<T: ViewBinding>() : AppCompatActivity() {
 
     abstract fun init()
 
+    lateinit var mContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
+        mContext = this
         setContentView(binding.root)
         loading = Loading(this).build()
         init()

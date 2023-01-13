@@ -52,4 +52,8 @@ interface RetrofitAPI {
     @POST("questions")
     fun questions(@Field("test_id") testId: Int): Call<QuestionResponse>
 
+    @POST("blogs")
+    fun blogs(): Call<BlogsResponse>
+
+
 }

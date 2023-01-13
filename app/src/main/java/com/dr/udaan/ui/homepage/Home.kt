@@ -1,39 +1,64 @@
-package com.dr.udaan.ui
+package com.dr.udaan.ui.homepage
 
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.dr.udaan.R
 import com.dr.udaan.adapter.AdapterExams
 import com.dr.udaan.adapter.AdapterSliderHome
+import com.dr.udaan.api.retrofit.Pojo.Blogdata
 import com.dr.udaan.databinding.FragmentHomeBinding
-import com.dr.udaan.databinding.RowItemBlogBinding
 import com.dr.udaan.other.APIData
 import com.dr.udaan.api.retrofit.Pojo.CategoryData
-import com.dr.udaan.api.retrofit.Pojo.SliderData
 import com.dr.udaan.api.retrofit.Retrofitinstance
-import com.dr.udaan.util.AppFunctions
+import com.dr.udaan.ui.BaseFragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import retrofit2.await
+import retrofit2.awaitResponse
 import java.lang.Runnable
 
 class Home : BaseFragment<FragmentHomeBinding>() {
 
     var handler = Handler(Looper.getMainLooper())
     lateinit var runnable: Runnable
-    private val list = ArrayList<ModelSlider>()
+    var adapter: AdapterSliderHome? = null
     private var sliderImages = arrayListOf<String>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        action()
+
+        CoroutineScope(IO)
+            .launch {
+
+                getSlider()
+
+                withContext(Main) {
+                    binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                    adapter = AdapterSliderHome(binding.vp, sliderImages)
+                    binding.vp.adapter = adapter
+
+                    runnable = kotlinx.coroutines.Runnable {
+                        binding.vp.currentItem = binding.vp.currentItem + 1
+                        handler.postDelayed(runnable, 3000)
+                    }
+
+                    handler.postDelayed(runnable, 3000)
+                }
+                getCategories()
+                getBlogs()
+            }
+
+    }
 
     override fun onDestroy() {
         if (this::runnable.isInitialized) {
@@ -42,37 +67,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         super.onDestroy()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-
-        binding.rv.adapter = AdapterBlog()
-        action()
-
-        if (!AppFunctions.isUserVerified(mContext)) {
-            findNavController().navigate(R.id.login)
-        }
-
-        CoroutineScope(IO)
-            .launch {
-                getSlider()
-                withContext(Main) {
-                    binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                    val adapter = AdapterSliderHome(binding.vp, sliderImages)
-                    binding.vp.adapter = adapter
-
-                    runnable = kotlinx.coroutines.Runnable {
-                        binding.vp.currentItem = binding.vp.currentItem + 1
-                        handler.postDelayed(runnable, 3000)
-                    }
-                    handler.postDelayed(runnable, 3000)
-                }
-                getCategories()
-            }
-        return binding.root
-    }
 
     fun action() {
         binding.viewAll.setOnClickListener() {
@@ -89,12 +83,14 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
             for (data in response) {
                 sliderImages.add(data.sliderImage!!)
+                adapter?.notifyItemInserted(sliderImages.lastIndex)
             }
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
 
     private suspend fun getCategories() {
 
@@ -120,29 +116,31 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
     }
 
+    private suspend fun getBlogs() {
+
+        var bList: ArrayList<Blogdata>
+        val response = Retrofitinstance.getRetrofit().blogs().awaitResponse()
+        withContext(Main) {
+            if (response.isSuccessful) {
+
+                bList = response.body()?.blogdata ?: ArrayList()
+
+                binding.rv.adapter = AdapterBlog(bList, findNavController())
+            } else {
+                Toast.makeText(
+                    mContext,
+                    "failed to load blog! please try after some time!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
 
-    inner class AdapterBlog() :
-        RecyclerView.Adapter<AdapterBlog.PlaceHolder>() {
-        inner class PlaceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {
-            val binding =
-                RowItemBlogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return PlaceHolder(binding.root)
-        }
-
-        override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
-
-        }
-
-        override fun getItemCount(): Int {
-            return 10
-        }
-    }
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 

@@ -1,12 +1,13 @@
 package com.dr.udaan.api
 
 import com.dr.udaan.MyApp.Companion.myDatabase
+import com.dr.udaan.api.retrofit.Pojo.TestData
 import com.dr.udaan.api.retrofit.Retrofitinstance.getRetrofit
 import retrofit2.await
 
 object TestsAPI {
 
-    suspend fun fetchTests(categoryId: Int, pageNo: Int)  {
+    suspend fun fetchTests(categoryId: Int, pageNo: Int): ArrayList<TestData>? {
 
         if (pageNo == 1) {
             myDatabase?.tests()?.deleteAllExceptSaved()
@@ -18,14 +19,12 @@ object TestsAPI {
             null
         }
 
-        response?.testData?.map {
-            myDatabase?.tests()?.insert(it)
-        }
+        response?.testData?.let { myDatabase?.tests()?.insertList(it) }
 
+        return response?.testData
     }
 
     suspend fun fetchQuestions(testId: Int) {
-
 
 
     }

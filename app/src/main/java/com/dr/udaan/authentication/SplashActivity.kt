@@ -8,6 +8,7 @@ import com.dr.udaan.MainActivity
 import com.dr.udaan.base.BaseActivity
 import com.dr.udaan.databinding.ActivitySplashBinding
 import com.dr.udaan.util.AppFunctions
+import com.dr.udaan.util.Const
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
@@ -43,18 +44,19 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun actions() {
-        val i = Intent(this, MainActivity::class.java)
+
         binding.login.setOnClickListener {
-            i.putExtra("page", "login")
-            startActivity(i)
+            startActivity(Intent(this, Login::class.java))
             finish()
         }
         binding.signup.setOnClickListener {
-            i.putExtra("page", "register")
-            startActivity(i)
+            startActivity(Intent(this, Register::class.java).apply {
+                putExtra(Const.IS_FROM_SPLASH, true)
+            })
             finish()
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -65,7 +67,3 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun getViewBinding() = ActivitySplashBinding.inflate(layoutInflater)
 
 }
-
-
-
-

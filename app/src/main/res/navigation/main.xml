@@ -8,12 +8,10 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.dr.udaan.ui.Home"
+        android:name="com.dr.udaan.ui.homepage.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_home2_to_otpForgotPassword"
-            app:destination="@id/otpForgotPassword" />
+
         <action
             android:id="@+id/action_home2_to_resetPassword"
             app:destination="@id/resetPassword" />
@@ -48,19 +46,6 @@
         tools:layout="@layout/fragment_library"
         />
 
-    <fragment
-        android:id="@+id/forgotPassword"
-        android:name="com.dr.udaan.authentication.ForgotPassword"
-        android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password"
-        />
-
-    <fragment
-        android:id="@+id/login"
-        android:name="com.dr.udaan.authentication.Login"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login"
-        />
 
     <fragment
         android:id="@+id/information"
@@ -69,33 +54,7 @@
         tools:layout="@layout/fragment_more_information"
         />
 
-    <fragment
-        android:id="@+id/otpForgotPassword"
-        android:name="com.dr.udaan.authentication.OtpForgotPassword"
-        android:label="fragment_otp_forgot_password"
-        tools:layout="@layout/fragment_otp_forgot_password"
-        />
 
-    <fragment
-        android:id="@+id/otpLogin"
-        android:name="com.dr.udaan.authentication.OtpLogin"
-        android:label="fragment_otp_login"
-        tools:layout="@layout/fragment_otp_login"
-        />
-
-    <fragment
-        android:id="@+id/register"
-        android:name="com.dr.udaan.authentication.Register"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register"
-        />
-
-    <activity
-        android:id="@+id/splashActivity"
-        android:name="com.dr.udaan.authentication.SplashActivity"
-        android:label="activity_splash"
-        tools:layout="@layout/activity_splash"
-        />
 
     <fragment
         android:id="@+id/resetPassword"

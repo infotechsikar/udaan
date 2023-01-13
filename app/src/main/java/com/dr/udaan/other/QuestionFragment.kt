@@ -41,16 +41,15 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
         showLoading()
         CoroutineScope(IO)
             .launch {
-              fetchQuestions()
+                fetchQuestions()
+                withContext(Main) {
+                    if (list.isNotEmpty()) {
+                        loadQuestions()
+                    } else {
+                        Toast.makeText(mContext, "No questions found", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
-
-        if (list.isNotEmpty()) {
-            loadQuestions()
-        }
-
-        else {
-            Toast.makeText(mContext, "No questions found", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun submitAns(selectedOption: Int) {
@@ -65,8 +64,8 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
     @SuppressLint("SetTextI18n")
     private fun updateTime(secondsUntilFinished: Int) {
 
-        val seconds = String.format("%02d",secondsUntilFinished % 60)
-        val minutes = String.format("%02d",(secondsUntilFinished - seconds.toInt()) / 60)
+        val seconds = String.format("%02d", secondsUntilFinished % 60)
+        val minutes = String.format("%02d", (secondsUntilFinished - seconds.toInt()) / 60)
 
         binding.timer.text = "$minutes:$seconds"
 
@@ -75,10 +74,10 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
     private fun countDownTimer() {
         countDownTimer?.cancel()
 
-        countDownTimer = object : CountDownTimer(duration*1000L,1000){
+        countDownTimer = object : CountDownTimer(duration * 1000L, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                updateTime((millisUntilFinished/1000).toInt())
+                updateTime((millisUntilFinished / 1000).toInt())
             }
 
             @SuppressLint("SetTextI18n")
@@ -118,23 +117,25 @@ class QuestionFragment : BaseFragment<FragmentQuestionBinding>() {
 
     private fun loadQuestions() {
 
-        val question= list[position].question
+        val question = list[position].question
         loadInWebView(binding.question, question)
         val op1 = list[position].optionA
         loadInWebView(binding.optionA, op1)
         val op2 = list[position].optionB
         loadInWebView(binding.optionB, op2)
         val op3 = list[position].optionC
-        loadInWebView(binding.optionC,op3)
+        loadInWebView(binding.optionC, op3)
         val op4 = list[position].optionD
-        loadInWebView(binding.optionD,op4)
+        loadInWebView(binding.optionD, op4)
 
     }
 
     private fun loadInWebView(webView: WebView, data: String?) {
 
-        webView.loadDataWithBaseURL(null, data ?: "",
-            "text/html", "UTF-8",null)
+        webView.loadDataWithBaseURL(
+            null, data ?: "",
+            "text/html", "UTF-8", null
+        )
 
     }
 

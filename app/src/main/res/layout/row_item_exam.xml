@@ -15,7 +15,7 @@
         android:layout_marginStart="@dimen/_33sdp"
         android:padding="10dp"
         android:id="@+id/imgExam"
-        app:tint="@color/light_gray"
+        app:tint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

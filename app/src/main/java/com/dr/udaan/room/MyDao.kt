@@ -3,6 +3,7 @@ package com.dr.udaan.room
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.dr.udaan.api.retrofit.Pojo.TestData
@@ -10,7 +11,7 @@ import com.dr.udaan.api.retrofit.Pojo.TestData
 @Dao
 interface UserDataDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: UserData)
 
     @Update
@@ -31,8 +32,11 @@ interface UserDataDao {
 @Dao
 interface TestsDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: TestData)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertList(entity: List<TestData>)
 
     @Update
     suspend fun update(entity: TestData)

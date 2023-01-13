@@ -10,13 +10,13 @@
     <item
         android:id="@+id/library"
         android:title="Library"
-        android:icon="@drawable/saved"
+        android:icon="@drawable/ic_bookmark"
         />
 
     <item
         android:id="@+id/settings"
         android:title="Setting"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/ic_settings"
         />
 
     <item
