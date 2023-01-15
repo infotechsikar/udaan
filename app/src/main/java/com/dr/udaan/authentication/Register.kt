@@ -2,15 +2,10 @@ package com.dr.udaan.authentication
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
-import com.dr.udaan.R
 import com.dr.udaan.databinding.ActivityRegisterBinding
-import com.dr.udaan.ui.BaseActivity
-import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.base.BaseActivity
 import com.dr.udaan.util.Const
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException

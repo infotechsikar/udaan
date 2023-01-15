@@ -2,6 +2,8 @@ package com.dr.udaan.dialogs
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.dr.udaan.R
@@ -16,6 +18,7 @@ class Loading(val mContext: Context) {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
+        d.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCancelable()
         this
     }

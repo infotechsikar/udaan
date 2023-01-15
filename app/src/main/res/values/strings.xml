@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">TestPaper</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Udaan</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="star_hints">******</string>
     <string name="_6_digit_code_has_been_sent_to">6 Digit code has been sent to</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="search_exams">Search Exams</string>
+    <string name="save_note">Save Note</string>
+    <string name="save_securely">Save Securely</string>
+    <string name="save">Save</string>
+    <string name="share">Share</string>
+    <string name="blogs">Blogs</string>
+    <string name="search">Search</string>
 </resources>

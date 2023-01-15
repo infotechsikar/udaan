@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -12,12 +11,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.dr.udaan.R
 import com.dr.udaan.adapter.AdapterExams
 import com.dr.udaan.adapter.AdapterSliderHome
-import com.dr.udaan.api.retrofit.Pojo.Blogdata
+import com.dr.udaan.api.retrofit.Pojo.BlogData
 import com.dr.udaan.databinding.FragmentHomeBinding
 import com.dr.udaan.other.APIData
 import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import com.dr.udaan.api.retrofit.Retrofitinstance
-import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.base.BaseFragment
+import com.dr.udaan.ui.activities.MainActivity
+import com.dr.udaan.ui.fragments.blog.AdapterBlog
+import com.dr.udaan.util.Const
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -39,25 +41,30 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
         CoroutineScope(IO)
             .launch {
-
-                getSlider()
-
                 withContext(Main) {
-                    binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                    adapter = AdapterSliderHome(binding.vp, sliderImages)
-                    binding.vp.adapter = adapter
-
-                    runnable = kotlinx.coroutines.Runnable {
-                        binding.vp.currentItem = binding.vp.currentItem + 1
-                        handler.postDelayed(runnable, 3000)
-                    }
-
-                    handler.postDelayed(runnable, 3000)
+                    shimmerEffects()
+                }
+                getSlider()
+                withContext(Main) {
+                    setSlider()
                 }
                 getCategories()
                 getBlogs()
             }
 
+    }
+
+    private fun setSlider() {
+        binding.vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        adapter = AdapterSliderHome(binding.vp, sliderImages)
+        binding.vp.adapter = adapter
+
+        runnable = Runnable {
+            binding.vp.currentItem = binding.vp.currentItem + 1
+            handler.postDelayed(runnable, 3000)
+        }
+
+        handler.postDelayed(runnable, 3000)
     }
 
     override fun onDestroy() {
@@ -67,10 +74,18 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         super.onDestroy()
     }
 
-
     fun action() {
         binding.viewAll.setOnClickListener() {
-            findNavController().navigate(R.id.exam)
+            MainActivity.bottomNavigationView?.selectedItemId = R.id.exam
+        }
+        binding.notes.setOnClickListener {
+            findNavController().navigate(R.id.notes)
+        }
+        binding.save.setOnClickListener {
+            MainActivity.bottomNavigationView?.selectedItemId = R.id.library
+        }
+        binding.viewAllBlog.setOnClickListener {
+            findNavController().navigate(R.id.allBlogs)
         }
     }
 
@@ -91,6 +106,10 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    private fun shimmerEffects() {
+        binding.rvExams.adapter = ShimmerAdapterExams(4)
+        binding.rv.adapter = ShimmerAdapterBlogs(3)
+    }
 
     private suspend fun getCategories() {
 
@@ -106,7 +125,11 @@ class Home : BaseFragment<FragmentHomeBinding>() {
             }
 
             withContext(Main) {
-                binding.cl2.adapter = AdapterExams(cList, findNavController())
+                binding.rvExams.adapter = AdapterExams(categoryData) {
+                    val args = Bundle()
+                    args.putInt(Const.EXAM_ID, it)
+                    findNavController().navigate(R.id.tests,args)
+                }
             }
 
         } catch (e: Exception) {
@@ -118,21 +141,25 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
     private suspend fun getBlogs() {
 
-        var bList: ArrayList<Blogdata>
-        val response = Retrofitinstance.getRetrofit().blogs().awaitResponse()
-        withContext(Main) {
-            if (response.isSuccessful) {
+        try {
+            var bList: ArrayList<BlogData>
+            val response = Retrofitinstance.getRetrofit().blogs().awaitResponse()
+            withContext(Main) {
+                if (response.isSuccessful) {
 
-                bList = response.body()?.blogdata ?: ArrayList()
+                    bList = response.body()?.blogdata ?: ArrayList()
 
-                binding.rv.adapter = AdapterBlog(bList, findNavController())
-            } else {
-                Toast.makeText(
-                    mContext,
-                    "failed to load blog! please try after some time!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    binding.rv.adapter = AdapterBlog(bList, findNavController())
+                } else {
+                    Toast.makeText(
+                        mContext,
+                        "failed to load blog! please try after some time!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

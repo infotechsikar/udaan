@@ -27,21 +27,21 @@
 
     <fragment
         android:id="@+id/examDetails"
-        android:name="com.dr.udaan.other.ExamDetails"
+        android:name="com.dr.udaan.ui.fragments.tests.ExamDetails"
         android:label="fragment_exam_details"
         tools:layout="@layout/fragment_exam_details"
         />
 
     <fragment
         android:id="@+id/exam"
-        android:name="com.dr.udaan.ui.Exams"
+        android:name="com.dr.udaan.ui.fragments.Exams"
         android:label="fragment_exams"
         tools:layout="@layout/fragment_exams"
         />
 
     <fragment
         android:id="@+id/library"
-        android:name="com.dr.udaan.ui.Library"
+        android:name="com.dr.udaan.ui.fragments.Library"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library"
         />
@@ -65,45 +65,46 @@
 
     <fragment
         android:id="@+id/test"
-        android:name="com.dr.udaan.other.Test"
+        android:name="com.dr.udaan.ui.fragments.saved.Test"
         android:label="fragment_test"
         tools:layout="@layout/fragment_test"
         />
 
     <fragment
         android:id="@+id/tests"
-        android:name="com.dr.udaan.other.tests.Tests"
+        android:name="com.dr.udaan.ui.fragments.tests.Tests"
         android:label="fragment_tests"
         tools:layout="@layout/fragment_tests"
         />
 
     <fragment
         android:id="@+id/testSets"
-        android:name="com.dr.udaan.other.TestSets"
+        android:name="com.dr.udaan.ui.fragments.saved.TestSets"
         android:label="fragment_test_sets"
         tools:layout="@layout/fragment_test_sets"
         />
 
     <fragment
         android:id="@+id/profile"
-        android:name="com.dr.udaan.ui.Profile"
+        android:name="com.dr.udaan.ui.fragments.Profile"
         android:label="fragment_profile2"
-        tools:layout="@layout/fragment_profile2"
+        tools:layout="@layout/fragment_profile"
         />
 
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.dr.udaan.other.QuestionFragment"
+        android:name="com.dr.udaan.ui.fragments.tests.QuestionFragment"
         android:label="fragment_question"
         tools:layout="@layout/fragment_question"
-        />
+        >
+        <action
+            android:id="@+id/action_questionFragment_to_scoreBoard"
+            app:destination="@id/scoreBoard"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/main"
+            app:popUpToInclusive="true" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/notification"
-        android:name="com.dr.udaan.other.Notification"
-        android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification"
-        />
     <fragment
         android:id="@+id/setting"
         android:name="com.dr.udaan.other.Setting"
@@ -112,33 +113,54 @@
         />
     <fragment
         android:id="@+id/blogs"
-        android:name="com.dr.udaan.other.Blogs"
+        android:name="com.dr.udaan.ui.fragments.blog.ViewBlog"
         android:label="fragment_blogs"
-        tools:layout="@layout/fragment_blogs"
+        tools:layout="@layout/fragment_view_blog"
         />
     <fragment
         android:id="@+id/growth"
-        android:name="com.dr.udaan.ui.Growth"
+        android:name="com.dr.udaan.ui.fragments.Growth"
         android:label="fragment_growth"
         tools:layout="@layout/fragment_growth"
         />
     <fragment
         android:id="@+id/notes"
-        android:name="com.dr.udaan.ui.Notes"
+        android:name="com.dr.udaan.ui.fragments.notes.Notes"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes"
         />
     <fragment
         android:id="@+id/saved"
-        android:name="com.dr.udaan.ui.Saved"
+        android:name="com.dr.udaan.ui.fragments.Saved"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved"
         />
     <fragment
         android:id="@+id/scoreBoard"
-        android:name="com.dr.udaan.other.ScoreBoard"
+        android:name="com.dr.udaan.ui.fragments.tests.ScoreBoard"
         android:label="fragment_score_board"
         tools:layout="@layout/fragment_score_board"
         />
+    <fragment
+        android:id="@+id/addEditNote"
+        android:name="com.dr.udaan.ui.fragments.notes.AddEditNote"
+        android:label="fragment_add_edit_note"
+        tools:layout="@layout/fragment_add_edit_note" />
+    <fragment
+        android:id="@+id/allBlogs"
+        android:name="com.dr.udaan.ui.fragments.blog.AllBlogs"
+        android:label="fragment_all_blogs"
+        tools:layout="@layout/fragment_all_blogs" />
+
+    <fragment
+        android:id="@+id/contactUs"
+        android:name="com.dr.udaan.ui.fragments.privacyandabout.ContactUs"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.dr.udaan.ui.fragments.Notification"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 
 </navigation>

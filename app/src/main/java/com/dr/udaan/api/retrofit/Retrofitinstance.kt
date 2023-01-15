@@ -37,7 +37,7 @@ object Retrofitinstance {
         okHttpClient = httpClient.build()
     }
 
-     fun getRetrofit() = run {
+     fun getRetrofit(): RetrofitAPI = run {
          initOkHttpClient()
          val retrofit = Retrofit.Builder()
              .baseUrl("https://udaan.sanwarjangid.com/api/")

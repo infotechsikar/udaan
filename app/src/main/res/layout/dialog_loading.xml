@@ -2,16 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_gravity="center"
+    android:paddingHorizontal="@dimen/_14sdp"
+    android:paddingVertical="@dimen/_10sdp"
     android:gravity="center"
-    android:padding="15dp"
+    android:background="@drawable/rounded_bg_50"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <ProgressBar
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:indeterminateTint="@color/black"
+        style="@android:style/Widget.ProgressBar.Large.Inverse"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         android:id="@+id/pb"
         />
 
@@ -20,8 +21,10 @@
         android:layout_height="wrap_content"
         android:text="Please wait..."
         android:id="@+id/message"
+        android:textSize="@dimen/_10sdp"
+        android:layout_gravity="center"
         android:textColor="@color/black"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/_10sdp"
         />
 
 </LinearLayout>

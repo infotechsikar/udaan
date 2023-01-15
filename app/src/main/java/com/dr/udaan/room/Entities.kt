@@ -1,23 +1,12 @@
 package com.dr.udaan.room
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.dr.udaan.util.Const
+import com.dr.udaan.util.Const.NOTIFICATIONS
 import com.google.gson.annotations.SerializedName
 
-//import androidx.room.ColumnInfo
-//import androidx.room.Entity
-//import androidx.room.PrimaryKey
-//
-//@Entity(tableName = "saved")
-//data class Saved(
-//
-//    @ColumnInfo(name = "id")
-//    @PrimaryKey(autoGenerate = true)
-//    val id: Int? = null,
-//
-//
-//
-//)
 
 @Entity(tableName = "userData")
 data class UserData (
@@ -38,9 +27,12 @@ data class UserData (
     @SerializedName("otp_status"        ) var otpStatus       : Int?    = null,
     @SerializedName("balance"           ) var balance         : Int?    = null,
     @SerializedName("address"           ) var address         : String? = null,
+    @SerializedName("dob"           ) var dob         : String? = null,
+    @SerializedName("category"           ) var category         : String? = null,
     @SerializedName("about"             ) var about           : String? = null,
     @SerializedName("profile_image"     ) var profileImage    : String? = null,
     @SerializedName("charge"            ) var charge          : String? = null,
     @SerializedName("is_deleted"        ) var isDeleted       : String? = null
 
 )
+

@@ -9,52 +9,40 @@
     tools:context=".authentication.MoreInformation">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        android:id="@+id/back"
+        android:visibility="gone"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
+        app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:contentDescription="@null"
         android:layout_gravity="center"
         android:src="@drawable/udaan"
-        android:layout_marginEnd="80dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
     <TextView
-        android:id="@+id/textbook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Udaan"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:fontFamily="@font/satoshi"
-        app:layout_constraintStart_toEndOf="@id/imageView"
-        app:layout_constraintTop_toTopOf="@id/imageView"
-        />
-
-    <TextView
-        android:id="@+id/skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
-        android:textColor="@color/sky_blue"
-        android:textSize="12sp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/satoshi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textbook"
-        />
-
-    <TextView
         android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Profile"
+        android:text="Update Profile"
         android:textSize="24sp"
-        android:layout_marginTop="40sp"
+        android:layout_marginTop="20sp"
         android:fontFamily="@font/satoshi"
-        app:layout_constraintTop_toBottomOf="@id/textbook"
+        app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -114,185 +102,178 @@
         app:layout_constraintTop_toTopOf="@id/view"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/sky_blue"
-        app:boxStrokeWidth="1dp"
-        android:id="@+id/names"
-        android:layout_marginTop="60dp"
-        android:layout_marginHorizontal="50sp"
-        android:hint="Name"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/view">
+        android:layout_height="0dp"
+        android:scrollbarThumbVertical="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/or">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/sky_blue"
+                app:boxStrokeWidth="1dp"
+                android:id="@+id/names"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginHorizontal="50sp"
+                android:hint="Full Name"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintTop_toBottomOf="@id/view">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:hint="Name"
                     android:id="@+id/name"
                     android:textSize="17sp"
                     />
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        app:boxStrokeColor="@color/sky_blue"-->
-<!--        android:layout_marginHorizontal="50sp"-->
-<!--        android:id="@+id/phone_number"-->
-<!--        app:boxCornerRadiusBottomEnd="20dp"-->
-<!--        app:boxCornerRadiusBottomStart="20dp"-->
-<!--        app:boxCornerRadiusTopEnd="20dp"-->
-<!--        app:boxCornerRadiusTopStart="20dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/account"-->
-<!--        >-->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/sky_blue"
+                app:boxStrokeWidth="1dp"
+                android:id="@+id/email"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="50sp"
+                android:hint="Email"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintTop_toBottomOf="@id/names">
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:inputType="number"-->
-<!--            android:padding="15dp"-->
-<!--            android:hint="Phone number"-->
-<!--            android:maxLength="10"-->
-<!--            android:id="@+id/phone"-->
-<!--            android:drawablePadding="15dp"-->
-<!--            android:drawableStart="@drawable/india"-->
-<!--            android:textSize="17sp"-->
-<!--            />-->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:id="@+id/emails"
+                    android:autofillHints="@null"
+                    android:padding="15dp"
+                    android:inputType="textEmailAddress"
+                    />
 
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/sky_blue"
-        app:boxStrokeWidth="1dp"
-        android:id="@+id/email"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50sp"
-        android:hint="Email"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/names">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/sky_blue"
+                app:boxStrokeWidth="1dp"
+                android:id="@+id/phone_number"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="50sp"
+                android:hint="Phone number"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintTop_toBottomOf="@id/email">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:id="@+id/emails"
-            android:padding="15dp"
-            />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:padding="15dp"
+                    android:autofillHints="@null"
+                    android:drawablePadding="10dp"
+                    android:id="@+id/phone_numbers"
+                    android:inputType="phone" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/sky_blue"
-        app:boxStrokeWidth="1dp"
-        android:id="@+id/phone_number"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50sp"
-        android:hint="+91 phone number"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/email">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/sky_blue"
+                app:boxStrokeWidth="1dp"
+                android:id="@+id/dob"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="50sp"
+                android:hint="Date of Birth"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintTop_toBottomOf="@id/phone_number">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:padding="15dp"
-            android:drawablePadding="10dp"
-            android:id="@+id/phone_numbers"
-            />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:padding="15dp"
+                    android:id="@+id/etDob"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:autofillHints="@null"
+                    android:inputType="time"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                    android:drawablePadding="10dp"
+                    />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/sky_blue"
-        app:boxStrokeWidth="1dp"
-        android:id="@+id/date"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50sp"
-        android:hint="Date of Birth"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/phone_number">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/sky_blue"
+                app:boxStrokeWidth="1dp"
+                android:id="@+id/category"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="50sp"
+                android:hint="Category"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:layout_constraintTop_toBottomOf="@id/date">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:padding="15dp"
-            android:id="@+id/birth"
-            android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
-            android:drawablePadding="10dp"
-            />
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:padding="15dp"
+                    android:id="@+id/categorys"
+                    android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+                    android:drawablePadding="10dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:text="@string/save_securely"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                app:cornerRadius="15dp"
+                android:textSize="17sp"
+                android:padding="15dp"
+                android:backgroundTint="#0ACFF3"
+                app:layout_constraintTop_toBottomOf="@id/category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/sky_blue"
-        app:boxStrokeWidth="1dp"
-        android:id="@+id/category"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="50sp"
-        android:hint="Category"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/date">
+        </LinearLayout>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:padding="15dp"
-            android:id="@+id/categorys"
-            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
-            android:drawablePadding="10dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/verify"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Verify"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        app:cornerRadius="15dp"
-        android:textSize="17sp"
-        android:padding="15dp"
-        android:backgroundTint="#0ACFF3"
-        app:layout_constraintTop_toBottomOf="@id/category"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

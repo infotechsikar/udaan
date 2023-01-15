@@ -5,8 +5,10 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,9 +31,18 @@
         <activity
             android:name=".authentication.ForgotPassword"
             android:exported="false" />
+        <activity
+            android:name=".ui.fragments.NoInternet"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.MyWebViewer"
+            android:exported="false" />
+        <activity
+            android:name=".authentication.MoreInformation"
+            android:exported="false" />
 
         <activity
-            android:name="com.dr.udaan.MainActivity"
+            android:name="com.dr.udaan.ui.activities.MainActivity"
             android:exported="false" />
         <activity
             android:name="com.dr.udaan.collections.Topics"
@@ -40,7 +51,7 @@
             android:name="com.dr.udaan.collections.ContentViewer"
             android:exported="false" />
         <activity
-            android:name="com.dr.udaan.authentication.SplashActivity"
+            android:name="com.dr.udaan.ui.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

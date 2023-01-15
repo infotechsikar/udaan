@@ -1,25 +1,18 @@
 package com.dr.udaan.authentication
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.findNavController
-import com.dr.udaan.R
+import com.dr.udaan.MyApp
 import com.dr.udaan.authentication.Register.Companion.resendToken
 import com.dr.udaan.api.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.databinding.ActivityOtpLoginBinding
-import com.dr.udaan.ui.BaseActivity
-import com.dr.udaan.ui.BaseFragment
+import com.dr.udaan.base.BaseActivity
+import com.dr.udaan.room.UserData
 import com.dr.udaan.util.Const
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
@@ -29,7 +22,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.await
@@ -123,34 +116,15 @@ class OtpLogin : BaseActivity<ActivityOtpLoginBinding>() {
         }
     }
 
-    private fun verifyPhoneNumberWithCodes(verificationId: String?, code: String) {
-        val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
-
-        auth.signInWithCredential(credential).addOnCompleteListener {
-            dismissLoading()
-            if (it.isSuccessful) {
-                showLoading()
-                CoroutineScope(IO)
-                    .launch {
-                        register(phone, password)
-                    }
-            } else {
-                Toast.makeText(mContext, "Verification Failed!", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     private suspend fun register(mobileNo: String, password: String) {
 
         showLoading()
-
         val request = RegisterRequest(
             "1", mobileNo, password, password
         )
 
         try {
             val response = Retrofitinstance.getRetrofit().register(request).await()
-            dismissLoading()
 
             if (response.success == false) {
                 withContext(Main) {
@@ -174,10 +148,15 @@ class OtpLogin : BaseActivity<ActivityOtpLoginBinding>() {
 
             withContext(Main) {
                 Toast.makeText(mContext, "Registration success", Toast.LENGTH_SHORT).show()
+
                 startActivity(
                     Intent(
-                        mContext, Login::class.java
-                    )
+                        mContext, MoreInformation::class.java
+                    ).apply {
+                        putExtra(Const.PHONE, mobileNo)
+                        putExtra(Const.ID, response.userId)
+                        putExtra(Const.IS_FROM_REGISTER, true)
+                    }
                 )
                 finish()
             }
@@ -186,6 +165,8 @@ class OtpLogin : BaseActivity<ActivityOtpLoginBinding>() {
             e.printStackTrace()
             Toast.makeText(mContext, "${e.message}", Toast.LENGTH_SHORT).show()
         }
+
+        dismissLoading()
     }
 
     private fun startResendTimer() {

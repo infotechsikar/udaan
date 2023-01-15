@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.notes.AddEditNote">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
+        app:title="Add New Note" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/light_gray"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:id="@+id/v1"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/v1"
+        android:scrollbarThumbHorizontal="@null"
+        android:scrollbarThumbVertical="@null"
+        app:layout_constraintTop_toBottomOf="@+id/v1"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/note_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/ic_image_256"/>
+
+            <EditText
+                android:id="@+id/note_title_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Title"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/bg_note"
+                android:padding="@dimen/_7sdp"
+                android:background="@drawable/rounded_bg"
+                android:inputType="text"
+                android:autofillHints="@null" />
+
+            <EditText
+                android:id="@+id/note_content_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:hint="Content"
+                android:backgroundTint="@color/bg_note"
+                android:padding="@dimen/_7sdp"
+                android:background="@drawable/rounded_bg"
+                android:minHeight="@dimen/_110sdp"
+                android:inputType="textMultiLine"
+                android:autofillHints="@null" />
+
+
+            <Button
+                android:id="@+id/save_note_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:backgroundTint="@color/primary_dark"
+                android:text="@string/save_note"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 package com.dr.udaan.api.retrofit
 
-import com.dr.udaan.RegisterResponse
+import com.dr.udaan.api.retrofit.Pojo.RegisterResponse
 import com.dr.udaan.api.retrofit.AllRequest.RegisterRequest
 import com.dr.udaan.api.retrofit.AllRequest.ResendOtpRequest
 import com.dr.udaan.api.retrofit.AllRequest.VerifyOtpRequest
 import com.dr.udaan.api.retrofit.Pojo.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -47,13 +48,29 @@ interface RetrofitAPI {
     @POST("questions")
     fun question(
         @Field("test_id") testId:Int
-    ) : Call<QuestionResponse?>?
-
-    @POST("questions")
-    fun questions(@Field("test_id") testId: Int): Call<QuestionResponse>
+    ) : Call<ServiceResponse<List<QuestionData>>?>?
 
     @POST("blogs")
     fun blogs(): Call<BlogsResponse>
+
+    @POST("submit-answers")
+    fun submitAns(): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("add-details")
+    fun addDetails(
+        @Field("userId") userId: Int,
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("address") address: String,
+        @Field("dob") dob: String,
+    ): Call<ServiceResponse<String>>
+
+    @FormUrlEncoded
+    @POST("search-exam")
+    fun searchTests(
+        @Field("text") text: String
+    ): Call<SearchServiceResponse>
 
 
 }

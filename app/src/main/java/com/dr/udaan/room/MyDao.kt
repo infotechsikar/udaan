@@ -26,6 +26,9 @@ interface UserDataDao {
     @Query("SELECT *From userData")
     fun getUserData(): List<UserData>
 
+    @Query("SELECT *From userData limit 1")
+    fun getUser(): UserData?
+
 
 }
 

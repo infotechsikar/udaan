@@ -13,7 +13,7 @@ import com.dr.udaan.api.retrofit.Pojo.CategoryData
 import com.dr.udaan.api.retrofit.Pojo.TestData
 import com.dr.udaan.util.Const
 
-class AdapterExams(private val list: ArrayList<CategoryData>, private val navController: NavController):
+class AdapterExams(private val list: ArrayList<CategoryData>, val callback: (examId: Int) -> Unit):
         RecyclerView.Adapter<AdapterExams.ExamHolder>() {
 
         inner class ExamHolder(itemView: View, val dBinding: RowItemExamBinding)
@@ -29,17 +29,8 @@ class AdapterExams(private val list: ArrayList<CategoryData>, private val navCon
         override fun onBindViewHolder(holder: ExamHolder, position: Int) {
             holder.dBinding.coursesName.text = list[position].categoryName
 
-//            Glide.with(holder.itemView.context)
-//                .load(list[position].categoryImage)
-//                .into(holder.dBinding.imgExam)
-
             holder.itemView.setOnClickListener {
-                val categoryId = list[position].id
-                val args = Bundle()
-                if (categoryId != null) {
-                    args.putInt(Const.EXAM_ID, categoryId)
-                }
-                navController.navigate(R.id.tests,args)
+                callback(list[position].id ?: -1)
             }
         }
 

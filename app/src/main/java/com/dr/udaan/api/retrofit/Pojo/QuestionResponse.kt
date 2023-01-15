@@ -4,14 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName 
 
-class QuestionResponse {
-
-    @SerializedName("success")         var success        : Boolean? = null
-    @SerializedName("message")         var message        : String?  = null
-    @SerializedName("question_data")   var question_data   : ArrayList<QuestionData> = arrayListOf()
-
-} 
-
 class QuestionData() : Parcelable {
  
     @SerializedName("id") var id: Int? = null

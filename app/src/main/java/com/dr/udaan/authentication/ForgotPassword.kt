@@ -1,7 +1,7 @@
 package com.dr.udaan.authentication
 
 import com.dr.udaan.databinding.ActivityForgotPasswordBinding
-import com.dr.udaan.ui.BaseActivity
+import com.dr.udaan.base.BaseActivity
 
 class ForgotPassword : BaseActivity<ActivityForgotPasswordBinding>() {
 

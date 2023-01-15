@@ -1,4 +1,4 @@
-package com.dr.udaan
+package com.dr.udaan.api.retrofit.Pojo
 
 import com.google.gson.annotations.SerializedName
 
