@@ -29,8 +29,8 @@ import java.lang.Runnable
 
 class Home : BaseFragment<FragmentHomeBinding>() {
 
-    var handler = Handler(Looper.getMainLooper())
-    lateinit var runnable: Runnable
+    private var handler = Handler(Looper.getMainLooper())
+    private lateinit var runnable: Runnable
     var adapter: AdapterSliderHome? = null
     private var sliderImages = arrayListOf<String>()
 
@@ -61,10 +61,9 @@ class Home : BaseFragment<FragmentHomeBinding>() {
 
         runnable = Runnable {
             binding.vp.currentItem = binding.vp.currentItem + 1
-            handler.postDelayed(runnable, 3000)
+            handler.postDelayed(runnable, 3000L)
         }
-
-        handler.postDelayed(runnable, 3000)
+        handler.postDelayed(runnable, 3000L)
     }
 
     override fun onDestroy() {
@@ -75,7 +74,7 @@ class Home : BaseFragment<FragmentHomeBinding>() {
     }
 
     fun action() {
-        binding.viewAll.setOnClickListener() {
+        binding.viewAll.setOnClickListener {
             MainActivity.bottomNavigationView?.selectedItemId = R.id.exam
         }
         binding.notes.setOnClickListener {
@@ -89,11 +88,8 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-
     private suspend fun getSlider() {
-
         try {
-
             val response = Retrofitinstance.getRetrofit().sliders().await().categoryData
 
             for (data in response) {
@@ -112,9 +108,7 @@ class Home : BaseFragment<FragmentHomeBinding>() {
     }
 
     private suspend fun getCategories() {
-
         try {
-
             val categoryData = APIData.fetchCategories()
             val cList = ArrayList<CategoryData>()
 
@@ -131,12 +125,10 @@ class Home : BaseFragment<FragmentHomeBinding>() {
                     findNavController().navigate(R.id.tests,args)
                 }
             }
-
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
         }
-
-
     }
 
     private suspend fun getBlogs() {
@@ -146,11 +138,10 @@ class Home : BaseFragment<FragmentHomeBinding>() {
             val response = Retrofitinstance.getRetrofit().blogs().awaitResponse()
             withContext(Main) {
                 if (response.isSuccessful) {
-
                     bList = response.body()?.blogdata ?: ArrayList()
-
                     binding.rv.adapter = AdapterBlog(bList, findNavController())
-                } else {
+                }
+                else {
                     Toast.makeText(
                         mContext,
                         "failed to load blog! please try after some time!",
@@ -167,7 +158,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         super.onAttach(context)
         mContext = context
     }
-
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(layoutInflater)
 

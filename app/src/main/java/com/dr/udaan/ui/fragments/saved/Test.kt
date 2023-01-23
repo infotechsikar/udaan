@@ -43,9 +43,9 @@ class Test : Fragment() {
     }
 
     fun action(){
-        binding.back.setOnClickListener(){
-            findNavController().popBackStack()
-        }
+//        binding.back.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
     }
 
     override fun onAttach(context: Context) {

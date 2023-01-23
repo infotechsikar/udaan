@@ -17,11 +17,9 @@ class AdapterExams(private val list: ArrayList<CategoryData>, val callback: (exa
         RecyclerView.Adapter<AdapterExams.ExamHolder>() {
 
         inner class ExamHolder(itemView: View, val dBinding: RowItemExamBinding)
-            : RecyclerView.ViewHolder(itemView) {
+            : RecyclerView.ViewHolder(itemView)
 
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExamHolder {
             val binding = RowItemExamBinding.inflate(LayoutInflater.from(parent.context),parent,false)
             return  ExamHolder(binding.root, binding)
         }

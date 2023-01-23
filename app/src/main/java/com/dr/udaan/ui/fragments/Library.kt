@@ -18,13 +18,13 @@ class Library : BaseFragment<FragmentLibraryBinding>() {
     }
 
     fun action() {
-        binding.savedBlogs.setOnClickListener(){
+        binding.savedBlogs.setOnClickListener {
             findNavController().navigate(R.id.allBlogs, Bundle().apply { putBoolean(Const.IS_FROM_SAVED, true) })
         }
-        binding.savedQuestions.setOnClickListener(){
+        binding.savedQuestions.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.test)
         }
-        binding.savedTests.setOnClickListener(){
+        binding.savedTests.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.test)
         }
     }

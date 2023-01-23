@@ -28,14 +28,13 @@ object InTheBackground {
 
         val response = try {
             getRetrofit().searchTests(text).await()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             null
         }
 
         return response?.searchResult
     }
-
-
 
     suspend fun updateProfile() {
 

@@ -72,5 +72,16 @@ interface RetrofitAPI {
         @Field("text") text: String
     ): Call<SearchServiceResponse>
 
+    @FormUrlEncoded
+    @POST("transactions")
+    fun transactions(@Field ("user_id") userId: Int):Call<TransactionResponse>
 
+    @FormUrlEncoded
+    @POST("change-password")
+    fun changePassword(
+        @Field("userId") userId: Int,
+        @Field("oldPassword") oldPassword:String,
+        @Field("password") password:String,
+        @Field("cPassword") cPassword:String )
+    :Call <ResetPasswordResponse>
 }

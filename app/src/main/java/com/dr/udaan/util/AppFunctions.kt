@@ -39,6 +39,7 @@ object AppFunctions {
     fun getUserName(mContext: Context): String {
         return SharedPref.getString(mContext, USER_NAME).toString()
     }
+    fun getUserId() = MyApp.myDatabase?.userData()?.getUser()?.id ?: -1
 
     fun getEmail(mContext: Context): String {
         return SharedPref.getString(mContext, EMAIL).toString()

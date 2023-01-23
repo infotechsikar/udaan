@@ -92,7 +92,6 @@ class Notification : BaseFragment<FragmentNotificationBinding>() {
             }
             binding.rv.adapter = AdapterNotifications(it)
         }
-
     }
 
     override fun getViewBinding() = FragmentNotificationBinding.inflate(layoutInflater)
@@ -112,12 +111,10 @@ class AdapterNotifications(val list: List<NotificationEntity>): RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: NotificationHolder, position: Int) {
-
         holder.dBinding.content.text = list[position].content
         holder.dBinding.dateTime.text = SimpleDateFormat("hh:mm a dd MMM y", Locale.ENGLISH).format(Date(list[position].dateTime))
         holder.dBinding.title.text = list[position].title
         holder.dBinding.logo.load(list[position].image)
-
     }
 
     override fun getItemCount() = list.size

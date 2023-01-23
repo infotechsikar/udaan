@@ -27,14 +27,15 @@ class Profile : BaseFragment<FragmentProfileBinding>() {
     }
 
     fun action(){
-        binding.editProfile.setOnClickListener() {
+        binding.editProfile.setOnClickListener {
             startActivity(
                 Intent(mContext, MoreInformation::class.java)
             )
         }
-        binding.changePassword.setOnClickListener(){
+        binding.changePassword.setOnClickListener {
             findNavController().navigate(R.id.resetPassword)
         }
+
         binding.logOut.setOnClickListener {
             AlertDialog.Builder(mContext)
                 .setTitle("Logout")

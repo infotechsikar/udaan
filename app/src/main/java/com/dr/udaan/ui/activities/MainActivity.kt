@@ -1,5 +1,6 @@
 package com.dr.udaan.ui.activities
 
+import android.app.ActionBar
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -30,10 +31,10 @@ import org.json.JSONObject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var navHostFragment: NavHostFragment
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     companion object {
         var bottomNavigationView: BottomNavigationView? = null
@@ -86,7 +87,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController.addOnDestinationChangedListener { _, navDestination, args ->
 
             Log.d("TAG", "destinationControl: ${navDestination.displayName}")
-
             when (navDestination.id) {
                 R.id.home -> {
                     binding.bottomNevigation.visibility = View.VISIBLE
@@ -166,6 +166,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     Toast.makeText(this, "support", Toast.LENGTH_SHORT).show()
                     true
                 }
+                R.id.transaction -> {
+                navController.navigate(R.id.transaction)
+                drawerLayout.closeDrawer(GravityCompat.START)
+                true
+            }
                 R.id.contactUs -> {
                     navController.navigate(R.id.contactUs)
                     true
@@ -235,7 +240,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
-        binding.notification.setOnClickListener(){
+        binding.notification.setOnClickListener {
             navController.navigate(R.id.notification)
         }
 
@@ -244,7 +249,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             args.putBoolean(Const.IS_SEARCH, true)
             navController.navigate(R.id.tests, args)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -260,38 +264,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         * */
         val activity: Activity = this
         val co = Checkout()
-        co.setKeyID("<YOUR_KEY_ID>")
+        co.setKeyID("<YOUR_KEY_ID")
 
         try {
             val options = JSONObject()
             options.put("name","Razorpay Corp")
             options.put("description","Demoing Charges")
             options.put("image","https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg")
-            options.put("theme.color", "#3399cc");
-            options.put("currency","INR");
-            options.put("order_id", "order_DBJOWzybf0sJbb");
+            options.put("theme.color", "#3399cc")
+            options.put("currency","INR")
+            options.put("order_id", "order_DBJOWzybf0sJbb")
             options.put("amount","50000")//pass amount in currency subunits
 
             val retryObj = JSONObject()
-            retryObj.put("enabled", true);
-            retryObj.put("max_count", 4);
-            options.put("retry", retryObj);
+            retryObj.put("enabled", true)
+            retryObj.put("max_count", 4)
+            options.put("retry", retryObj)
 
+//            val prefill = JSONObject()
+//            prefill.put("email","gaurav.kumar@example.com")
+//            prefill.put("contact","9876543210")
+//            options.put("prefill",prefill)
+//            co.open(activity,options)
+//
             val prefill = JSONObject()
             prefill.put("email","gaurav.kumar@example.com")
             prefill.put("contact","9876543210")
-
             options.put("prefill",prefill)
             co.open(activity,options)
-
-        } catch (e: Exception) {
-            Toast.makeText(activity,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
+        }
+        catch (e: Exception) {
+            Toast.makeText(activity, "Error in payment:"+ e.message, Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
-
     }
 
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
-
 
 }

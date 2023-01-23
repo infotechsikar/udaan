@@ -46,15 +46,12 @@
         tools:layout="@layout/fragment_library"
         />
 
-
     <fragment
         android:id="@+id/information"
         android:name="com.dr.udaan.authentication.MoreInformation"
         android:label="fragment_more_information"
         tools:layout="@layout/fragment_more_information"
         />
-
-
 
     <fragment
         android:id="@+id/resetPassword"
@@ -135,17 +132,21 @@
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved"
         />
+
     <fragment
         android:id="@+id/scoreBoard"
         android:name="com.dr.udaan.ui.fragments.tests.ScoreBoard"
         android:label="fragment_score_board"
         tools:layout="@layout/fragment_score_board"
         />
+
     <fragment
         android:id="@+id/addEditNote"
         android:name="com.dr.udaan.ui.fragments.notes.AddEditNote"
         android:label="fragment_add_edit_note"
-        tools:layout="@layout/fragment_add_edit_note" />
+        tools:layout="@layout/fragment_add_edit_note"
+        />
+
     <fragment
         android:id="@+id/allBlogs"
         android:name="com.dr.udaan.ui.fragments.blog.AllBlogs"
@@ -156,11 +157,30 @@
         android:id="@+id/contactUs"
         android:name="com.dr.udaan.ui.fragments.privacyandabout.ContactUs"
         android:label="fragment_contact_us"
-        tools:layout="@layout/fragment_contact_us" />
+        tools:layout="@layout/fragment_contact_us"
+        />
+
     <fragment
         android:id="@+id/notification"
         android:name="com.dr.udaan.ui.fragments.Notification"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification"
+        />
+
+    <fragment
+        android:id="@+id/transaction"
+        android:name="com.dr.udaan.ui.fragments.Transaction"
+        android:label="fragment_transaction"
+        tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/paymentStatus"
+        android:name="com.dr.udaan.ui.fragments.PaymentStatus"
+        android:label="fragment_payment_status"
+        tools:layout="@layout/fragment_payment_status" />
+    <fragment
+        android:id="@+id/testDetails"
+        android:name="com.dr.udaan.ui.fragments.tests.TestDetails"
+        android:label="fragment_test_details"
+        tools:layout="@layout/fragment_test_details" />
 
 </navigation>
