@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import com.dr.udaan.room.MyDatabase
 
 class MyApp: Application() {
-
     companion object {
         var appContext: Context? = null
         var myDatabase: MyDatabase? = null

@@ -108,6 +108,7 @@
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting"
         />
+
     <fragment
         android:id="@+id/blogs"
         android:name="com.dr.udaan.ui.fragments.blog.ViewBlog"

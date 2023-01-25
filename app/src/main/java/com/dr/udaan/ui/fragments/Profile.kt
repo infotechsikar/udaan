@@ -13,7 +13,9 @@ import com.dr.udaan.authentication.Login
 import com.dr.udaan.authentication.MoreInformation
 import com.dr.udaan.base.BaseFragment
 import com.dr.udaan.databinding.FragmentProfileBinding
+import com.dr.udaan.ui.activities.MyWebViewer
 import com.dr.udaan.util.AppFunctions
+import com.dr.udaan.util.Const
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -34,6 +36,18 @@ class Profile : BaseFragment<FragmentProfileBinding>() {
         }
         binding.changePassword.setOnClickListener {
             findNavController().navigate(R.id.resetPassword)
+        }
+
+        binding.helpCenter.setOnClickListener{
+            startActivity(
+                Intent(
+                    mContext,
+                    MyWebViewer::class.java
+                ).apply {
+                    putExtra(Const.CONTENT, AppFunctions.getHelpCenter(mContext))
+                    putExtra(Const.TITLE, "Help Center")
+                }
+            )
         }
 
         binding.logOut.setOnClickListener {

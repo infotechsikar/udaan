@@ -41,7 +41,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun init() {
-
         bottomNavigationView = binding.bottomNevigation
 
         /**
@@ -74,7 +73,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             setUpNavComponent()
             setBottomNavigation()
         }
-
     }
 
     private fun setUpNavComponent() {
@@ -85,7 +83,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun destinationControl() {
         navController.addOnDestinationChangedListener { _, navDestination, args ->
-
             Log.d("TAG", "destinationControl: ${navDestination.displayName}")
             when (navDestination.id) {
                 R.id.home -> {
@@ -141,7 +138,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         }
     }
-
     private fun navView(){
         binding.navigationView.itemIconTintList = null
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -162,10 +158,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.support -> {
-                    Toast.makeText(this, "support", Toast.LENGTH_SHORT).show()
-                    true
-                }
+
                 R.id.transaction -> {
                 navController.navigate(R.id.transaction)
                 drawerLayout.closeDrawer(GravityCompat.START)
@@ -175,6 +168,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     navController.navigate(R.id.contactUs)
                     true
                 }
+
                 R.id.aboutUs -> {
                     startActivity(
                         Intent(
@@ -187,6 +181,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     )
                     true
                 }
+
                 R.id.privacyPolicy -> {
                     startActivity(
                         Intent(
@@ -199,6 +194,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     )
                     true
                 }
+
                 R.id.termsConditions -> {
                     startActivity(
                         Intent(
@@ -217,7 +213,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
@@ -228,7 +223,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun actions() {
-
         binding.menu.setOnClickListener {
             Handler(Looper.getMainLooper()).post {
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -281,12 +275,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             retryObj.put("max_count", 4)
             options.put("retry", retryObj)
 
-//            val prefill = JSONObject()
-//            prefill.put("email","gaurav.kumar@example.com")
-//            prefill.put("contact","9876543210")
-//            options.put("prefill",prefill)
-//            co.open(activity,options)
-//
             val prefill = JSONObject()
             prefill.put("email","gaurav.kumar@example.com")
             prefill.put("contact","9876543210")
@@ -298,7 +286,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             e.printStackTrace()
         }
     }
-
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
 }

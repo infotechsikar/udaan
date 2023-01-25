@@ -22,7 +22,8 @@
             android:contentDescription="@null"
             android:src="@drawable/ic_menu"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <TextView
             android:id="@+id/search"
@@ -56,20 +57,23 @@
             app:layout_constraintBottom_toBottomOf="@+id/menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/menu"
-            app:tint="@color/black" />
+            app:tint="@color/black"
+            />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/container"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:defaultNavHost="true"
             android:layout_marginTop="@dimen/_7sdp"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottom_nevigation"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search"
-            app:navGraph="@navigation/main" />
+            app:navGraph="@navigation/main"
+            />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nevigation"
@@ -84,7 +88,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/container"
-            app:menu="@menu/bottom_nevigation" />
+            app:menu="@menu/bottom_nevigation"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,6 +102,7 @@
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/menu_drawer_layout" />
+        app:menu="@menu/menu_drawer_layout"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

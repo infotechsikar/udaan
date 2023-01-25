@@ -35,10 +35,12 @@ object Const {
     const val NOTIFICATIONS = "notifications"
 
     const val ABOUT_US = "About Us"
+    const val HELP_CENTER = "Help Center"
     const val CONTACT_US = "Contact Us"
     const val PRIVACY_POLICY = "Privacy Policy"
     const val TERMS_AND_CONDITIONS = "Terms And Conditions"
     const val REFUND_POLICY = "Refund Policy"
+    const val IS_NOTIFICATION_ON = "isNotificationOn"
 
     // Other const
     const val IS_FROM_SPLASH = "isFromSplash"

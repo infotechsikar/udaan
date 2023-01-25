@@ -14,6 +14,8 @@ import com.dr.udaan.util.Const.ABOUT_US
 import com.dr.udaan.util.Const.AUTH_STATUS
 import com.dr.udaan.util.Const.AUTH_STATUS_DONE
 import com.dr.udaan.util.Const.EMAIL
+import com.dr.udaan.util.Const.HELP_CENTER
+import com.dr.udaan.util.Const.IS_NOTIFICATION_ON
 import com.dr.udaan.util.Const.NOTIFICATION_ENABLED
 import com.dr.udaan.util.Const.PHONE
 import com.dr.udaan.util.Const.PRIVACY_POLICY
@@ -68,17 +70,17 @@ object AppFunctions {
     fun getProfileUrl(mContext: Context): String {
         return SharedPref.getString(mContext, PROFILE_URL).toString()
     }
-
-
     fun logOut(mContext: Context) {
         SharedPref.logOut(mContext)
     }
-
 
     fun getAboutUs(mContext: Context): String {
         return SharedPref.getString(mContext, ABOUT_US).toString()
     }
 
+    fun getHelpCenter(mContext: Context):String {
+        return SharedPref.getString(mContext, HELP_CENTER).toString()
+    }
     fun getPrivacyPolicy(mContext: Context): String {
         return SharedPref.getString(mContext, PRIVACY_POLICY).toString()
     }
@@ -94,7 +96,7 @@ object AppFunctions {
     fun setAboutUs(mContext: Context, data: String) {
         SharedPref.setString(mContext, ABOUT_US, data).toString()
     }
-
+    
     fun setPrivacyPolicy(mContext: Context, data: String) {
         SharedPref.setString(mContext, PRIVACY_POLICY, data).toString()
     }
@@ -106,7 +108,6 @@ object AppFunctions {
     fun setRefundPolicy(mContext: Context, data: String) {
         SharedPref.setString(mContext, REFUND_POLICY, data).toString()
     }
-
 
     fun checkConnection(context: Context): Boolean {
 
@@ -161,4 +162,10 @@ object AppFunctions {
         return stream.toByteArray()
     }
 
+    fun setNotificationOn(mContext: Context, isOn : Boolean) {
+        return SharedPref.setBoolean(mContext, IS_NOTIFICATION_ON, isOn)
+    }
+    fun isNotificationOn(mContext: Context) : Boolean {
+        return SharedPref.getBoolean(mContext, IS_NOTIFICATION_ON)
+    }
 }

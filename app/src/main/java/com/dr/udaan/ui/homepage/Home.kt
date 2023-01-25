@@ -15,6 +15,7 @@ import com.dr.udaan.api.retrofit.Pojo.BlogData
 import com.dr.udaan.databinding.FragmentHomeBinding
 import com.dr.udaan.other.APIData
 import com.dr.udaan.api.retrofit.Pojo.CategoryData
+import com.dr.udaan.api.retrofit.Pojo.SliderData
 import com.dr.udaan.api.retrofit.Retrofitinstance
 import com.dr.udaan.base.BaseFragment
 import com.dr.udaan.ui.activities.MainActivity
@@ -38,7 +39,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         action()
-
         CoroutineScope(IO)
             .launch {
                 withContext(Main) {
@@ -65,7 +65,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         }
         handler.postDelayed(runnable, 3000L)
     }
-
     override fun onDestroy() {
         if (this::runnable.isInitialized) {
             handler.removeCallbacks(runnable)
@@ -82,6 +81,9 @@ class Home : BaseFragment<FragmentHomeBinding>() {
         }
         binding.save.setOnClickListener {
             MainActivity.bottomNavigationView?.selectedItemId = R.id.library
+        }
+        binding.transaction.setOnClickListener{
+            findNavController().navigate(R.id.transaction)
         }
         binding.viewAllBlog.setOnClickListener {
             findNavController().navigate(R.id.allBlogs)
@@ -117,7 +119,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
                     cList.add(categoryData[i])
                 }
             }
-
             withContext(Main) {
                 binding.rvExams.adapter = AdapterExams(categoryData) {
                     val args = Bundle()
@@ -132,7 +133,6 @@ class Home : BaseFragment<FragmentHomeBinding>() {
     }
 
     private suspend fun getBlogs() {
-
         try {
             var bList: ArrayList<BlogData>
             val response = Retrofitinstance.getRetrofit().blogs().awaitResponse()
@@ -149,10 +149,21 @@ class Home : BaseFragment<FragmentHomeBinding>() {
                     ).show()
                 }
             }
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
+//    private fun slider(viewPager2:ViewPager2){
+//        val sliderData = java.util.ArrayList<SliderData>()
+//        val adapter =AdapterSliderHome(sliderData, viewPager2, findNavController())
+//
+//        for (i in 0..5) {
+//            sliderData.add(SliderData("",""))
+//            adapter.notifyItemInserted(adapter.itemCount - 1)
+//        }
+//    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
